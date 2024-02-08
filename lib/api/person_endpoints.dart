@@ -34,3 +34,18 @@ void checkPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
   }
   savePeople(persons);
 }
+
+void deletePersonFormEndpoint(HttpRequest request, SsrResponse response) async {
+  response.setStatus(301).setLocationHeader("/person/check");
+  String requestBody = await utf8.decodeStream(request);
+  Map<String, String> params =formPostBodyToMap(requestBody);
+  List<Person> persons = getPeople();
+  List<Person> filtered = [];
+  print(requestBody);
+  for(var p in persons){
+    if(params[p.name] != "on"){
+      filtered.add(p);
+    } 
+  }
+  savePeople(persons);
+}

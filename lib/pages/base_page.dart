@@ -6,6 +6,7 @@ Component navBar() {
     Anchor(href:"/",text:"home"),
     Anchor(href:"/person/add",text:"add person"),
     Anchor(href:"/person/check",text:"check person"),
+    Anchor(href:"/person/delete",text:"delete person"),
   ], style: Style(display: "flex", gap: "10px"));
 }
 

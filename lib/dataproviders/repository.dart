@@ -2,7 +2,7 @@ import "../../domain.dart";
 import "dart:io";
 import "dart:convert";
 
-File peoplesFile = File("people.json");
+File peoplesFile = File("data/people.json");
 
 List<Person> getPeople(){
   if(!peoplesFile.existsSync()){
