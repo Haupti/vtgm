@@ -1,6 +1,7 @@
 import 'dart:io';
 import "dart:convert";
 import 'request_handler.dart';
+import "root_page.dart";
 
 void defaultHandleNotFound(HttpRequest request){
   request.response.statusCode = 404;
@@ -69,3 +70,8 @@ void okResponse(HttpResponse response, String body, ContentType contentType){
   response.headers.contentType = ContentType.html;
   response.write(body);
 }
+
+void okHtmlResponse(HttpResponse response, RootPage body){
+  okResponse(response, body.renderPage(), ContentType.html);
+}
+

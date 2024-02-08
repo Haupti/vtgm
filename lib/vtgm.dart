@@ -7,7 +7,7 @@ import 'ssr/component.dart';
 
 
 void homeEndpoint(HttpRequest request) {
-  okResponse(request.response, RootPage([Paragraph(text: "hi")]).renderPage(), ContentType.html);
+  okHtmlResponse(request.response, RootPage([Paragraph(text: "hi")]));
 }
 
 void vtgm(List<String> _) {
