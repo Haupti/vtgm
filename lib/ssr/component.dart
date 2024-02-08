@@ -160,6 +160,20 @@ class Paragraph implements Component{
   }
 }
 
+class TableHeader implements Component {
+  Style? style;
+  String text;
+
+  TableHeader({required this.text, this.style});
+
+  @override
+  String render(){
+    return """
+      <th${Style.inlineProp(style)}>$text</th>
+    """;
+  }
+}
+
 class TableData implements Component {
   Style? style;
   String text;
@@ -176,16 +190,16 @@ class TableData implements Component {
 
 class TableRow implements Component {
   Style? style;
-  List<String> tableData;
+  List<Component> tableData;
 
   TableRow({required this.tableData, this.style});
 
   @override
   String render(){
     return """
-      <table${Style.inlineProp(style)}>
-        ${renderMany(tableData.map((String s) => TableData(text: s)).toList())}
-      </table>
+      <tr${Style.inlineProp(style)}>
+        ${renderMany(tableData)}
+      </tr>
     """;
   }
 }
