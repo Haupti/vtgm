@@ -19,7 +19,6 @@ String root(String content){
   """;
 }
 
-
 void homeEndpoint(HttpRequest request) {
   okResponse(request.response, root("hi"), ContentType.html);
 }
