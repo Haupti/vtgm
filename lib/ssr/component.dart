@@ -1,7 +1,15 @@
 import 'dart:math';
 class Style {
   Map<String, String> property = {};
-  Style({String? color, String? width, String? height}){
+  Style({
+    String? color,
+    String? width,
+    String? height,
+    String? display,
+    String? flexDirection,
+    String? justifyContent,
+    String? gap,
+  }){
     if(color != null){
       property["color"] = color;
     }
@@ -11,11 +19,23 @@ class Style {
     if(height != null){
       property["height"] = height;
     }
+    if(display != null){
+      property["display"] = display;
+    }
+    if(flexDirection != null){
+      property["flex-direction"] = flexDirection;
+    }
+    if(justifyContent != null){
+      property["justify-content"] = justifyContent;
+    }
+    if(gap != null){
+      property["gap"] = gap;
+    }
   }
   String inline(){
     String inlineStyle = "";
     for(var key in property.keys) {
-      inlineStyle = "$inlineStyle$key:${property[key]}";
+      inlineStyle = "$inlineStyle$key:${property[key]};";
     }
     return inlineStyle;
   }
@@ -76,9 +96,9 @@ class Div implements Component{
   @override
   String render(){
     return """
-      <a${Style.inlineProp(style)}>
+      <div${Style.inlineProp(style)}>
         ${renderMany(children)}
-      </a>
+      </div>
     """;
   }
 }
