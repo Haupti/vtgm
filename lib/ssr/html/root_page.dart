@@ -1,4 +1,4 @@
-import "component.dart";
+import 'component.dart';
 
 String root(String content){
   return """

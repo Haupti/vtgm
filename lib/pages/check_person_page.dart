@@ -1,12 +1,12 @@
 import 'package:vtgm/dataproviders/repository.dart';
 import 'base_page.dart';
-import '../ssr/component.dart';
-import '../ssr/response.dart';
-import '../ssr/server.dart';
+import '../ssr/html/component.dart';
+import '../ssr/http/response.dart';
+import '../ssr/http/server.dart';
 import 'dart:io';
-import '../ssr/root_page.dart';
+import '../ssr/html/root_page.dart';
 import '../domain.dart';
-import '../ssr/style.dart';
+import '../ssr/html/style.dart';
 
 void checkPersonPage(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();

@@ -1,5 +1,5 @@
-import 'ssr/server.dart';
-import 'ssr/request_handler.dart';
+import 'ssr/http/server.dart';
+import 'ssr/http/request_handler.dart';
 import 'pages/home_page.dart';
 import 'pages/add_person_page.dart';
 import 'pages/check_person_page.dart';

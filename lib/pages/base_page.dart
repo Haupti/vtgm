@@ -1,6 +1,6 @@
-import '../ssr/component.dart';
-import '../ssr/root_page.dart';
-import '../ssr/style.dart';
+import '../ssr/html/component.dart';
+import '../ssr/html/root_page.dart';
+import '../ssr/html/style.dart';
 
 Component navBar() {
   Style aStyle = Style(
