@@ -17,7 +17,11 @@ void server(int port, List<RequestHandler> handlers) async {
         if(h.isResponsible(request)){
           isHandled = true;
 
-          authWrapper(request, h);
+          if(h.requiresAuth){
+            authWrapper(request, h);
+          } else {
+            h.handle(request);
+          }
           request.response.close();
           break;
         }
@@ -52,7 +56,6 @@ void authWrapper(HttpRequest request, RequestHandler handler){
       return;
   }
   String decodedAuth = utf8.decode(base64.decode(authToken));
-  print(decodedAuth);
   if(decodedAuth != "user:token"){
       sendWWWAuthenticate(request);
       return;

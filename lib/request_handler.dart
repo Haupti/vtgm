@@ -16,12 +16,17 @@ class RequestHandler{
   final RequestMethod method;
   final String path;
   final void Function(HttpRequest request) handler;
+  bool requiresAuth = true;
 
   RequestHandler({
     required this.method,
     required this.path,
     required this.handler,
   });
+
+  void setAuthorizationRequired(bool requiresAuth){
+    this.requiresAuth = requiresAuth;
+  }
 
   bool isResponsible(HttpRequest request){
     return request.method == method.key && request.uri.path == path;
