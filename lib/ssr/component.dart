@@ -9,6 +9,7 @@ class Style {
     String? flexDirection,
     String? justifyContent,
     String? gap,
+    String? textDecoration,
   }){
     if(color != null){
       property["color"] = color;
@@ -30,6 +31,9 @@ class Style {
     }
     if(gap != null){
       property["gap"] = gap;
+    }
+    if(textDecoration != null){
+      property["text-decoration"] = textDecoration;
     }
   }
   String inline(){
@@ -140,8 +144,8 @@ class Form implements Component{
   @override
   String render(){
     return """
-      <form action="$action" method="get">
-        renderMany(formInputs);
+      <form action="$action" method="post">
+        ${renderMany(formInputs)}
         <input type="submit" value="$submitButtonText" />
       </form>
     """;
@@ -149,13 +153,14 @@ class Form implements Component{
 }
 
 class ListItem implements Component{
+  Style? style;
   String text;
-  ListItem({required this.text});
+  ListItem({required this.text, this.style});
 
   @override
   String render() {
     return """
-      <li> $text </li>
+      <li${Style.inlineProp(style)}> $text </li>
     """;
   }
 }

@@ -64,14 +64,18 @@ void authWrapper(HttpRequest request, RequestHandler handler){
   handler.handle(request);
 }
 
-void okResponse(HttpResponse response, String body, ContentType contentType){
-  response.contentLength = body.length;
+void okBodyResponse(HttpResponse response, String body, ContentType contentType){
   response.statusCode = 200;
   response.headers.contentType = ContentType.html;
+  response.contentLength = body.length;
   response.write(body);
 }
 
+void okResponse(HttpResponse response){
+  response.statusCode = 200;
+}
+
 void okHtmlResponse(HttpResponse response, RootPage body){
-  okResponse(response, body.renderPage(), ContentType.html);
+  okBodyResponse(response, body.renderPage(), ContentType.html);
 }
 
