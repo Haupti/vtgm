@@ -127,3 +127,49 @@ class Form implements Component{
     """;
   }
 }
+
+class ListItem implements Component{
+  String text;
+  ListItem({required this.text});
+
+  @override
+  String render() {
+    return """
+      <li> $text </li>
+    """;
+  }
+}
+
+class UnorderedList implements Component {
+  List<ListItem> items;
+  UnorderedList(this.items);
+
+  @override
+  String render(){
+    return """
+    <ul>
+      ${renderMany(items)}
+    </ul>
+    """;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

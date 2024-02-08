@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'server.dart';
-import 'request_handler.dart';
+import 'ssr/server.dart';
+import 'ssr/request_handler.dart';
 
 
 String root(String content){
