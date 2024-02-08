@@ -56,7 +56,6 @@ class Div implements Component{
   }
 }
 
-
 String generateId() {
   var r = Random();
   return String.fromCharCodes(List.generate(8, (index) => r.nextInt(33) + 89));
@@ -161,6 +160,51 @@ class Paragraph implements Component{
   }
 }
 
+class TableData implements Component {
+  Style? style;
+  String text;
+
+  TableData({required this.text, this.style});
+
+  @override
+  String render(){
+    return """
+      <td${Style.inlineProp(style)}>$text</td>
+    """;
+  }
+}
+
+class TableRow implements Component {
+  Style? style;
+  List<String> tableData;
+
+  TableRow({required this.tableData, this.style});
+
+  @override
+  String render(){
+    return """
+      <table${Style.inlineProp(style)}>
+        ${renderMany(tableData.map((String s) => TableData(text: s)).toList())}
+      </table>
+    """;
+  }
+}
+
+class Table implements Component {
+  List<TableRow> rows;
+  Style? style;
+
+  Table({required this.rows, this.style});
+
+  @override
+  String render(){
+    return """
+      <table${Style.inlineProp(style)}>
+        ${renderMany(rows)}
+      </table>
+    """;
+  }
+}
 
 
 
