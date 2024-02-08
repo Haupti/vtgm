@@ -1,13 +1,14 @@
-import "dart:convert";
-import "dart:io";
-
 class Person {
   String name;
   Person(this.name);
 
-  Map<String, dynamic> toJson(Person person) {
+  Map<String, dynamic> toJson() {
     return {
-      "name": person.name,
+      "name": name,
     };
+  }
+
+  Person fromJson(Map<String, dynamic> jsonNode){
+    return Person(jsonNode["name"]);
   }
 }

@@ -2,12 +2,14 @@ import 'dart:io';
 import "dart:convert";
 import 'request_handler.dart';
 import "root_page.dart";
+import 'response.dart';
 
 void defaultHandleNotFound(HttpRequest request){
-  request.response.statusCode = 404;
-  request.response.headers.add(HttpHeaders.contentTypeHeader ,ContentType.html.value);
-  request.response.write("<h1> page not found </h1>");
-  request.response.close();
+  SsrResponse.createResponse(request)
+    .setStatus(404)
+    .setContentTypeHtmlHeader()
+    .write("<h1> page not found </h1>")
+    .close();
 }
 
 void server(int port, List<RequestHandler> handlers) async {
@@ -21,7 +23,7 @@ void server(int port, List<RequestHandler> handlers) async {
           if(h.requiresAuth){
             authWrapper(request, h);
           } else {
-            h.handle(request);
+            h.handle(request, SsrResponse.createResponse(request));
           }
           request.response.close();
           break;
@@ -33,49 +35,45 @@ void server(int port, List<RequestHandler> handlers) async {
   });
 }
 
-void sendWWWAuthenticate(HttpRequest request){
-  request.response.statusCode = 401;
-  request.response.headers.add(HttpHeaders.wwwAuthenticateHeader, "Basic realm=\"vtgmRealm\", charset=\"UTF-8\"");
-  request.response.close();
+void sendWWWAuthenticate(SsrResponse response){
+  response.setStatus(401)
+          .setWWWAuthenticateHeader("Basic realm=\"vtgmRealm\", charset=\"UTF-8\"")
+          .close();
 }
 
 void authWrapper(HttpRequest request, RequestHandler handler){
   String? authHeader = request.headers.value(HttpHeaders.authorizationHeader);
   if(authHeader == null || !authHeader.contains(RegExp(r'Basic .*'))){
-    sendWWWAuthenticate(request);
+    sendWWWAuthenticate(SsrResponse.createResponse(request));
     return;
   }
   RegExp rgx = RegExp(r'(?<=Basic ).*');
   RegExpMatch? match = rgx.firstMatch(authHeader);
   if(match == null){
-    sendWWWAuthenticate(request);
+    sendWWWAuthenticate(SsrResponse.createResponse(request));
     return;
   }
   String? authToken = match[0];
   if(authToken == null){
-      sendWWWAuthenticate(request);
+      sendWWWAuthenticate(SsrResponse.createResponse(request));
       return;
   }
   String decodedAuth = utf8.decode(base64.decode(authToken));
   if(decodedAuth != "user:token"){
-      sendWWWAuthenticate(request);
+      sendWWWAuthenticate(SsrResponse.createResponse(request));
       return;
   }
-  handler.handle(request);
+  handler.handle(request, SsrResponse.createResponse(request));
 }
 
-void okBodyResponse(HttpResponse response, String body, ContentType contentType){
-  response.statusCode = 200;
-  response.headers.contentType = ContentType.html;
-  response.contentLength = body.length;
-  response.write(body);
+void okBodyResponse(SsrResponse response, String body, ContentType contentType){
+  response.setStatus(200)
+          .setContentTypeHtmlHeader()
+          .setContentLengthHeader(body.length)
+          .write(body);
 }
 
-void okResponse(HttpResponse response){
-  response.statusCode = 200;
-}
-
-void okHtmlResponse(HttpResponse response, RootPage body){
+void okHtmlResponse(SsrResponse response, RootPage body){
   okBodyResponse(response, body.renderPage(), ContentType.html);
 }
 

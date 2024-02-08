@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'response.dart';
 
 enum RequestMethod {
   mGet(key:"GET"),
@@ -15,7 +16,7 @@ enum RequestMethod {
 class RequestHandler{
   final RequestMethod method;
   final String path;
-  final void Function(HttpRequest request) handler;
+  final void Function(HttpRequest request, SsrResponse response) handler;
   bool requiresAuth = true;
 
   RequestHandler({
@@ -32,7 +33,7 @@ class RequestHandler{
     return request.method == method.key && request.uri.path == path;
   }
 
-  void handle(HttpRequest request) {
-    handler(request);
+  void handle(HttpRequest request, SsrResponse response) {
+    handler(request, response);
   }
 }

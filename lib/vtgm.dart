@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:convert';
 import 'ssr/server.dart';
+import 'ssr/response.dart';
 import 'ssr/request_handler.dart';
 import 'ssr/root_page.dart';
 import 'ssr/component.dart';
 import 'domain.dart';
 import 'dataproviders/repository.dart';
-
 
 
 Component navBar() {
@@ -23,7 +23,7 @@ RootPage basePage(List<Component> children){
   ]);
 }
 
-void homeEndpoint(HttpRequest request) {
+void homeEndpoint(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();
   RootPage page = basePage([
     UnorderedList(
@@ -32,10 +32,10 @@ void homeEndpoint(HttpRequest request) {
       }).toList()
     )
   ]);
-  okHtmlResponse(request.response, page);
+  okHtmlResponse(response, page);
 }
 
-void addPersonEndpoint(HttpRequest request) {
+void addPersonEndpoint(HttpRequest request, SsrResponse response) {
   RootPage page = basePage([
     Form(formInputs: [
       FormInput(type: "text", name:"name",labelText: "name:")
@@ -44,13 +44,36 @@ void addPersonEndpoint(HttpRequest request) {
     submitButtonText: "save"
     )
   ]);
-  okHtmlResponse(request.response, page);
+  okHtmlResponse(response, page);
 }
 
-void addPersonFormEndpoint(HttpRequest request) async {
+Map<String, String> formPostBodyToMap(String formPostBody){
+  List<String> params = formPostBody.split("&");
+  Map<String, String> result = {};
+  for(var param in params){
+    List<String> keyValuePair = param.split("=");
+    if(keyValuePair.length == 2){
+      result[keyValuePair[0]] = keyValuePair[1];
+    }
+    else {
+      print("error parsing request body (form post): $keyValuePair");
+    }
+  }
+  return result;
+}
+
+void addPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
   String requestBody = await utf8.decodeStream(request);
-  print(requestBody);
-  okResponse(request.response);
+  Map<String, String> params =formPostBodyToMap(requestBody);
+  List<Person> persons = getPeople();
+  String? name = params["name"];
+  if(name == null){
+    print("error: name parameter is required but not in request body");
+    return;
+  }
+  persons.add(Person(name));
+  savePeople(persons);
+  response.setStatus(301).setLocationHeader("/person/add");
 }
 
 void vtgm(List<String> _) {

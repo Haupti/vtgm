@@ -9,7 +9,7 @@ List<Person> getPeople(){
     return [];
   }
   String jsonArrayString = peoplesFile.readAsStringSync();
-  if(jsonArrayString == ""){
+  if(jsonArrayString.isEmpty){
     return [];
   }
   List<dynamic> jsonTodos = jsonDecode(jsonArrayString);
