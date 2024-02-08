@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:vtgm/ssr/http/auth.dart';
+
 import 'response.dart';
 
 enum RequestMethod {
@@ -17,7 +19,7 @@ class RequestHandler{
   final RequestMethod method;
   final String path;
   final void Function(HttpRequest request, SsrResponse response) handler;
-  bool requiresAuth = true;
+  AuthRole minimumRole = AuthRole.basic;
 
   RequestHandler({
     required this.method,
@@ -25,8 +27,8 @@ class RequestHandler{
     required this.handler,
   });
 
-  void setAuthorizationRequired(bool requiresAuth){
-    this.requiresAuth = requiresAuth;
+  void setMinimumRole(AuthRole minimumRole){
+    this.minimumRole = minimumRole;
   }
 
   bool isResponsible(HttpRequest request){

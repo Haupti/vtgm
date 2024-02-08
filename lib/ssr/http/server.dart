@@ -1,8 +1,9 @@
 import 'dart:io';
 import "dart:convert";
 import 'request_handler.dart';
-import "root_page.dart";
+import '../html/root_page.dart';
 import 'response.dart';
+import 'auth.dart';
 
 void defaultHandleNotFound(HttpRequest request){
   SsrResponse.createResponse(request)
@@ -19,12 +20,7 @@ void server(int port, List<RequestHandler> handlers) async {
       for (final h in handlers) {
         if(h.isResponsible(request)){
           isHandled = true;
-
-          if(h.requiresAuth){
-            authWrapper(request, h);
-          } else {
-            h.handle(request, SsrResponse.createResponse(request));
-          }
+          authWrapper(request, h);
           request.response.close();
           break;
         }
@@ -42,6 +38,12 @@ void sendWWWAuthenticate(SsrResponse response){
 }
 
 void authWrapper(HttpRequest request, RequestHandler handler){
+  if(handler.minimumRole == AuthRole.none){
+    handler.handle(request, SsrResponse.createResponse(request));
+  }
+
+  List<User> users = getUsers();
+
   String? authHeader = request.headers.value(HttpHeaders.authorizationHeader);
   if(authHeader == null || !authHeader.contains(RegExp(r'Basic .*'))){
     sendWWWAuthenticate(SsrResponse.createResponse(request));
@@ -59,11 +61,11 @@ void authWrapper(HttpRequest request, RequestHandler handler){
       return;
   }
   String decodedAuth = utf8.decode(base64.decode(authToken));
-  if(decodedAuth != "user:token"){
-      sendWWWAuthenticate(SsrResponse.createResponse(request));
-      return;
+  if(users.any((User user) => user.verifyBasicAuth(decodedAuth) && user.isAuthorized(handler.minimumRole))){
+    handler.handle(request, SsrResponse.createResponse(request));
+  } else {
+    sendWWWAuthenticate(SsrResponse.createResponse(request));
   }
-  handler.handle(request, SsrResponse.createResponse(request));
 }
 
 void okBodyResponse(SsrResponse response, String body, ContentType contentType){
