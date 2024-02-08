@@ -12,13 +12,14 @@ void checkPersonPage(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();
   Style style = Style(display:"flex", flexDirection: "row-reverse", justifyContent: "left");
   RootPage page = basePage([
+    H1(text: "Check", style: Style(fontSize: "24px")),
     Form(formInputs: 
       persons.map((Person p) => 
         FormInput(type: "checkbox", name:p.name,labelText: p.name, required: false, checked: p.checked, style: style)
       ).toList()
     ,
     action:"/person/check",
-    submitButtonText: "save",
+    submitButtonText: "check",
     )
   ]);
   okHtmlResponse(response, page);
