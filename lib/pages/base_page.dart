@@ -1,18 +1,40 @@
 import '../ssr/component.dart';
 import '../ssr/root_page.dart';
+import '../ssr/style.dart';
 
 Component navBar() {
+  Style aStyle = Style(
+    backgroundColor: "white",
+    color: "black",
+    border: "2px solid #bcc5d4",
+    boxShadow: "3px 3px #bcc5d4",
+    textDecoration: "none",
+    padding: "4px 8px",
+  );
+
+  Style wrapperStyle = Style(
+    display: "flex",
+    gap: "10px",
+    padding: "0 0 10px 10px",
+    borderBottom: "2px solid black",
+    alignItems: "center",
+    justifyContent: "start",
+  );
   return Div(children: [
-    Anchor(href:"/",text:"home"),
-    Anchor(href:"/person/add",text:"add person"),
-    Anchor(href:"/person/check",text:"check person"),
-    Anchor(href:"/person/delete",text:"delete person"),
-  ], style: Style(display: "flex", gap: "10px"));
+    Paragraph(text: "H5 TGM VB"),
+    Anchor(href:"/",text:"home", style: aStyle),
+    Anchor(href:"/person/add",text:"add person", style: aStyle),
+    Anchor(href:"/person/check",text:"check person", style: aStyle),
+    Anchor(href:"/person/delete",text:"delete person", style: aStyle),
+  ], style: wrapperStyle);
 }
 
 RootPage basePage(List<Component> children){
+  Style style = Style(
+    padding: "10px 10px 0 10px"
+  );
   return RootPage([
     navBar(),
-    ...children
+    Div(children: children, style: style)
   ]);
 }

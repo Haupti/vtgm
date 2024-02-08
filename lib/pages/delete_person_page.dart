@@ -6,6 +6,7 @@ import '../ssr/server.dart';
 import 'dart:io';
 import '../ssr/root_page.dart';
 import '../domain.dart';
+import '../ssr/style.dart';
 
 void deletePersonPage(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();

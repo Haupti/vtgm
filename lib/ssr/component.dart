@@ -1,56 +1,5 @@
 import 'dart:math';
-class Style {
-  Map<String, String> property = {};
-  Style({
-    String? color,
-    String? width,
-    String? height,
-    String? display,
-    String? flexDirection,
-    String? justifyContent,
-    String? gap,
-    String? textDecoration,
-  }){
-    if(color != null){
-      property["color"] = color;
-    }
-    if(width != null){
-      property["width"] = width;
-    }
-    if(height != null){
-      property["height"] = height;
-    }
-    if(display != null){
-      property["display"] = display;
-    }
-    if(flexDirection != null){
-      property["flex-direction"] = flexDirection;
-    }
-    if(justifyContent != null){
-      property["justify-content"] = justifyContent;
-    }
-    if(gap != null){
-      property["gap"] = gap;
-    }
-    if(textDecoration != null){
-      property["text-decoration"] = textDecoration;
-    }
-  }
-  String inline(){
-    String inlineStyle = "";
-    for(var key in property.keys) {
-      inlineStyle = "$inlineStyle$key:${property[key]};";
-    }
-    return inlineStyle;
-  }
-  static String inlineProp(Style? style){
-    if(style == null){
-      return "";
-    } else {
-      return " style=\"${style.inline()}\"";
-    }
-  }
-}
+import 'style.dart';
 
 class Component{
   String render() => "";
@@ -153,10 +102,18 @@ class Form implements Component{
 
   @override
   String render(){
+    Style style = Style(
+      backgroundColor: "white",
+      boxShadow: "2px 2px #bcc5d4",
+      fontSize: "16px",
+      margin: "8px 0px",
+      padding: "3px 6px",
+      border: "2px solid #bcc5d4",
+    );
     return """
       <form action="$action" method="post">
         ${renderMany(formInputs)}
-        <input type="submit" value="$submitButtonText" />
+        <input${Style.inlineProp(style)} type="submit" value="$submitButtonText"/>
       </form>
     """;
   }

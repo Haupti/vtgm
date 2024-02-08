@@ -6,6 +6,7 @@ import '../ssr/response.dart';
 import 'dart:io';
 import '../ssr/root_page.dart';
 import '../domain.dart';
+import '../ssr/style.dart';
 
 void homePage(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();
