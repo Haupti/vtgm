@@ -1,26 +1,13 @@
 import 'dart:io';
 import 'ssr/server.dart';
 import 'ssr/request_handler.dart';
+import 'ssr/root_page.dart';
+import 'ssr/component.dart';
 
 
-String root(String content){
-  return """
-    <!DOCTYPE HTML>
-    <html lang="en">
-      <head>
-        <META charset="UTF-8">
-        <META name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> VTGM </title>
-      </head>
-      <body>
-        $content
-      </body>
-    </html>
-  """;
-}
 
 void homeEndpoint(HttpRequest request) {
-  okResponse(request.response, root("hi"), ContentType.html);
+  okResponse(request.response, RootPage([Paragraph(text: "hi")]).renderPage(), ContentType.html);
 }
 
 void vtgm(List<String> _) {

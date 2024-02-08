@@ -35,7 +35,7 @@ class Component{
 String renderMany(List<Component> components){
   String result = "";
   for(var c in components){
-    result = "$result$c";
+    result = "$result${c.render()}";
   }
   return result;
 }
@@ -155,7 +155,19 @@ class UnorderedList implements Component {
 }
 
 
+class Paragraph implements Component{
+  String text;
+  Style? style;
 
+  Paragraph({required this.text, this.style});
+
+  @override
+  String render() {
+    return """
+      <p${Style.inlineProp(style)}> $text </p>
+    """;
+  }
+}
 
 
 
