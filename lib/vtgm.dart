@@ -28,7 +28,11 @@ void homeEndpoint(HttpRequest request, SsrResponse response) {
   RootPage page = basePage([
     UnorderedList(
       persons.map((p) {
-        return ListItem(text: p.name, style: Style(textDecoration: "line-through"));
+        Style? style;
+        if(p.checked){
+          style = Style(textDecoration: "line-through");
+        }
+        return ListItem(text: p.name, style: style);
       }).toList()
     )
   ]);
@@ -63,6 +67,7 @@ Map<String, String> formPostBodyToMap(String formPostBody){
 }
 
 void addPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
+  response.setStatus(301).setLocationHeader("/person/add");
   String requestBody = await utf8.decodeStream(request);
   Map<String, String> params =formPostBodyToMap(requestBody);
   List<Person> persons = getPeople();
@@ -73,7 +78,6 @@ void addPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
   }
   persons.add(Person(name));
   savePeople(persons);
-  response.setStatus(301).setLocationHeader("/person/add");
 }
 
 void vtgm(List<String> _) {
