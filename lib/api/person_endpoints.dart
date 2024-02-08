@@ -18,3 +18,19 @@ void addPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
   persons.add(Person(name));
   savePeople(persons);
 }
+
+void checkPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
+  response.setStatus(301).setLocationHeader("/person/check");
+  String requestBody = await utf8.decodeStream(request);
+  Map<String, String> params =formPostBodyToMap(requestBody);
+  List<Person> persons = getPeople();
+  print(requestBody);
+  for(var p in persons){
+    if(params[p.name] == "on"){
+      p.checked = true;
+    } else if(params[p.name] == null){
+      p.checked = false;
+    }
+  }
+  savePeople(persons);
+}

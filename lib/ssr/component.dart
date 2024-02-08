@@ -117,9 +117,19 @@ class FormInput implements Component {
   String labelText;
   String type;
   String name;
+  String? value;
   bool required = true;
+  bool checked;
 
-  FormInput({required this.type, required this.name, required this.labelText, this.required = true, this.style});
+  FormInput({
+    required this.type,
+    required this.name,
+    required this.labelText,
+    this.value,
+    this.required = true,
+    this.style,
+    this.checked = false,
+  });
 
   @override
   String render() {
@@ -128,7 +138,7 @@ class FormInput implements Component {
     return """
       <div${Style.inlineProp(style)}>
         <label for="$id">$labelText</label>
-        <input type="$type" name="$name" id="$id" $requiredFlag/>
+        <input type="$type" name="$name" id="$id" $requiredFlag ${value == null ? "" : """value="$value" """} ${checked ? "checked" : ""}/>
       </div>
     """;
   }

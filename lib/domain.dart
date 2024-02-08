@@ -10,7 +10,7 @@ class Person {
     };
   }
 
-  Person fromJson(Map<String, dynamic> jsonNode){
+  static Person fromJson(Map<String, dynamic> jsonNode){
     return Person(
       jsonNode["name"],
       jsonNode["checked"]

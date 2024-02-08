@@ -7,7 +7,7 @@ import 'dart:io';
 import '../ssr/root_page.dart';
 import '../domain.dart';
 
-void homeEndpoint(HttpRequest request, SsrResponse response) {
+void homePage(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();
   RootPage page = basePage([
     UnorderedList(

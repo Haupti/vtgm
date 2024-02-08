@@ -17,7 +17,7 @@ List<Person> getPeople(){
   List<Person> persons = [];
   for(final jsonTodo in jsonTodos){
     try{
-      persons.add(Person( jsonTodo["name"].toString(), ) );
+      persons.add(Person.fromJson(jsonTodo) );
     } catch(e) {
       print("ERROR: could not read from file: $e");
       exit(1);

@@ -5,7 +5,7 @@ import '../ssr/server.dart';
 import 'dart:io';
 import '../ssr/root_page.dart';
 
-void addPersonEndpoint(HttpRequest request, SsrResponse response) {
+void addPersonPage(HttpRequest request, SsrResponse response) {
   RootPage page = basePage([
     Form(formInputs: [
       FormInput(type: "text", name:"name",labelText: "name:")

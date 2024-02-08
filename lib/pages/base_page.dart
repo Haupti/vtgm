@@ -5,6 +5,7 @@ Component navBar() {
   return Div(children: [
     Anchor(href:"/",text:"home"),
     Anchor(href:"/person/add",text:"add person"),
+    Anchor(href:"/person/check",text:"check person"),
   ], style: Style(display: "flex", gap: "10px"));
 }
 
