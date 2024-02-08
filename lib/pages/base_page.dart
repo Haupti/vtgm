@@ -1,3 +1,5 @@
+import 'package:vtgm/ssr/http/auth.dart';
+
 import '../ssr/html/component.dart';
 import '../ssr/html/root_page.dart';
 import '../ssr/html/style.dart';
@@ -20,12 +22,23 @@ Component navBar() {
     alignItems: "center",
     justifyContent: "start",
   );
+
+  var home =  Anchor(href:"/",text:"home", style: aStyle);
+  var personAdd =  Anchor(href:"/person/add",text:"add person", style: aStyle);
+  var personCheck =  Anchor(href:"/person/check",text:"check person", style: aStyle);
+  var personDelete =  Anchor(href:"/person/delete",text:"delete person", style: aStyle);
+  AuthRole currentRole = getCurrentAuthorizedUserRole();
+  var visibleAnchors = [];
+  if(currentRole == AuthRole.basic){
+    visibleAnchors = [home];
+  } else if( currentRole == AuthRole.mod){
+    visibleAnchors = [home, personCheck];
+  } else if( currentRole == AuthRole.admin){
+    visibleAnchors = [home, personCheck, personDelete, personAdd];
+  }
   return Div(children: [
     Paragraph(text: "H5 TGM VB"),
-    Anchor(href:"/",text:"home", style: aStyle),
-    Anchor(href:"/person/add",text:"add person", style: aStyle),
-    Anchor(href:"/person/check",text:"check person", style: aStyle),
-    Anchor(href:"/person/delete",text:"delete person", style: aStyle),
+    ...visibleAnchors
   ], style: wrapperStyle);
 }
 

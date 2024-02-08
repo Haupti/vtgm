@@ -60,7 +60,14 @@ void authWrapper(HttpRequest request, RequestHandler handler){
       sendWWWAuthenticate(SsrResponse.createResponse(request));
       return;
   }
+
   String decodedAuth = utf8.decode(base64.decode(authToken));
+  for (User user in users) {
+    if(user.verifyBasicAuth(decodedAuth)){
+      currentUser = user;
+    }
+  }
+      
   if(users.any((User user) => user.verifyBasicAuth(decodedAuth) && user.isAuthorized(handler.minimumRole))){
     handler.handle(request, SsrResponse.createResponse(request));
   } else {

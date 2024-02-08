@@ -55,6 +55,15 @@ class User {
 
 File usersFile = File("data/users.json");
 
+User? currentUser;
+AuthRole getCurrentAuthorizedUserRole() {
+  if(currentUser != null){
+    return currentUser!.role;
+  } else {
+    return AuthRole.none;
+  }
+}
+
 List<User> getUsers(){
   if(!usersFile.existsSync()){
     return [];

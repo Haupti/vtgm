@@ -24,7 +24,6 @@ void checkPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
   String requestBody = await utf8.decodeStream(request);
   Map<String, String> params =formPostBodyToMap(requestBody);
   List<Person> persons = getPeople();
-  print(requestBody);
   for(var p in persons){
     if(params[p.name] == "on"){
       p.checked = true;
@@ -36,16 +35,15 @@ void checkPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
 }
 
 void deletePersonFormEndpoint(HttpRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader("/person/check");
+  response.setStatus(301).setLocationHeader("/person/delete");
   String requestBody = await utf8.decodeStream(request);
   Map<String, String> params =formPostBodyToMap(requestBody);
   List<Person> persons = getPeople();
   List<Person> filtered = [];
-  print(requestBody);
   for(var p in persons){
     if(params[p.name] != "on"){
       filtered.add(p);
     } 
   }
-  savePeople(persons);
+  savePeople(filtered);
 }

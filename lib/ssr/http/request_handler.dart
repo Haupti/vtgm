@@ -19,7 +19,7 @@ class RequestHandler{
   final RequestMethod method;
   final String path;
   final void Function(HttpRequest request, SsrResponse response) handler;
-  AuthRole minimumRole = AuthRole.basic;
+  AuthRole minimumRole = AuthRole.admin;
 
   RequestHandler({
     required this.method,
@@ -27,8 +27,9 @@ class RequestHandler{
     required this.handler,
   });
 
-  void setMinimumRole(AuthRole minimumRole){
+  RequestHandler setMinimumRole(AuthRole minimumRole){
     this.minimumRole = minimumRole;
+    return this;
   }
 
   bool isResponsible(HttpRequest request){
