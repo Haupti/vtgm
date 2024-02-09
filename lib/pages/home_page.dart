@@ -9,23 +9,27 @@ import '../domain.dart';
 import '../ssr/html/style.dart';
 
 void homePage(HttpRequest request, SsrResponse response) {
-  Style headerStyle = Style(textAlign: "left", padding: "0 8px 0 0", borderBottom: "1px solid black");
-  Style dataStyle = Style(textAlign: "left", padding: "0 8px 0 0");
-  Style checkedStyle = Style(textAlign: "center");
+  Style headerStyle = Style(color: "white", textAlign: "left", padding: "15px", border: "1px solid #54585d", backgroundColor: "#54585d");
+  Style dataStyle = Style(textAlign: "left", padding: "15px");
+  Style checkedStyle = Style(textAlign: "center", padding: "15px");
+  Style tableStyle = Style(borderCollapse: "collapse");
+  Style bodyRowStyle = Style(border: "1px solid #54585d");
   List<Person> persons = getPeople();
   RootPage page = basePage([
     H1(text: "Statistics", style: Style(fontSize: "24px")),
-    Table(rows: [
-      TableRow(tableData: [
-        TableHeader(text: "name",style: headerStyle),
-        TableHeader(text: "strength workout",style: headerStyle),
-        TableHeader(text: "delays",style: headerStyle)
+    Table(style: tableStyle, rows: [
+      TableHeader(children: 
+        [TableRow(tableData: [
+          TableData(text: "name",style: headerStyle),
+          TableData(text: "strength workout",style: headerStyle),
+          TableData(text: "delays",style: headerStyle)
+        ])
       ]),
       ...persons.map((Person p) =>
-        TableRow(tableData:[
+        TableRow(style: bodyRowStyle,tableData:[
           TableData(text: p.name, style: dataStyle),
           TableData(text: p.checked ? "done" : " ", style: checkedStyle),
-          TableData(text: "${p.currentDelays}"),
+          TableData(text: "${p.currentDelays}", style: checkedStyle),
         ])
       ).toList(),
     ])

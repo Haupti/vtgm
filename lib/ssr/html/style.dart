@@ -24,7 +24,11 @@ class Style {
     String? padding,
     String? margin,
     String? textAlign,
+    String? borderCollapse,
     }){
+    if(borderCollapse != null){
+      property["border-collapse"] = borderCollapse;
+    }
     if(margin != null){
       property["margin"] = margin;
     }

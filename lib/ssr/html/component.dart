@@ -13,6 +13,18 @@ String renderMany(List<Component> components){
   return result;
 }
 
+class H2 implements Component{
+  Style? style;
+  String text;
+  H2({this.style, required this.text});
+
+  @override
+  String render(){
+    return """
+      <h2${Style.inlineProp(style)}> $text </h2>
+    """;
+  }
+}
 
 class H1 implements Component{
   Style? style;
@@ -162,14 +174,16 @@ class Paragraph implements Component{
 
 class TableHeader implements Component {
   Style? style;
-  String text;
+  List<Component> children;
 
-  TableHeader({required this.text, this.style});
+  TableHeader({required this.children, this.style});
 
   @override
   String render(){
     return """
-      <th${Style.inlineProp(style)}>$text</th>
+      <thead${Style.inlineProp(style)}>
+        ${renderMany(children)}
+      </thead>
     """;
   }
 }
@@ -205,7 +219,7 @@ class TableRow implements Component {
 }
 
 class Table implements Component {
-  List<TableRow> rows;
+  List<Component> rows;
   Style? style;
 
   Table({required this.rows, this.style});

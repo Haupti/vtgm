@@ -10,10 +10,11 @@ import '../ssr/html/style.dart';
 
 void managePersonPage(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();
-  Style style = Style(display:"flex", flexDirection: "row-reverse", justifyContent: "left");
+  Style style = Style(display:"flex", flexDirection: "row-reverse", justifyContent: "left", gap: "10px");
   RootPage page = basePage([
     H1(text: "Update", style: Style(fontSize: "24px")),
-    Div(style: Style(display: "flex",flexDirection: "row"), children: [
+    Div(children: [
+      H2(text: "unpaid delays"),
       Div(style: Style( margin: "0 5vw 0 0"), children: [
         Form(formInputs: 
           persons.map((Person p) => 
@@ -25,9 +26,10 @@ void managePersonPage(HttpRequest request, SsrResponse response) {
         )
       ]),
       Div(children: [
+        H2(text: "unpaid delays"),
         Form(formInputs: 
           persons.map((Person p) => 
-            FormInput(type: "number", name:"${p.name}-delays",labelText: "unpaid delays of ${p.name}", required: true, value: "${p.currentDelays}", style: style)
+            FormInput(type: "number", name:"${p.name}-delays",labelText: p.name, required: true, value: "${p.currentDelays}", style: style)
           ).toList()
         ,
         action:"/person/delays",
