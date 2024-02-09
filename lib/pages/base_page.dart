@@ -24,9 +24,9 @@ Component navBar() {
   );
 
   var home =  Anchor(href:"/",text:"home", style: aStyle);
-  var personAdd =  Anchor(href:"/person/add",text:"add person", style: aStyle);
-  var personCheck =  Anchor(href:"/person/check",text:"check person", style: aStyle);
+  var personCheck =  Anchor(href:"/person/update",text:"manage", style: aStyle);
   var personDelete =  Anchor(href:"/person/delete",text:"delete person", style: aStyle);
+  var personAdd =  Anchor(href:"/person/add",text:"add person", style: aStyle);
   AuthRole currentRole = getCurrentAuthorizedUserRole();
   var visibleAnchors = [];
   if(currentRole == AuthRole.basic){

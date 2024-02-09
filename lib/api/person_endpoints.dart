@@ -2,13 +2,11 @@ import 'dart:io';
 import '../ssr/http/response.dart';
 import 'parse_form_post.dart';
 import '../dataproviders/repository.dart';
-import 'dart:convert';
 import '../domain.dart';
 
 void addPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
   response.setStatus(301).setLocationHeader("/person/add");
-  String requestBody = await utf8.decodeStream(request);
-  Map<String, String> params =formPostBodyToMap(requestBody);
+  Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   String? name = params["name"];
   if(name == null){
@@ -20,9 +18,8 @@ void addPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
 }
 
 void checkPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader("/person/check");
-  String requestBody = await utf8.decodeStream(request);
-  Map<String, String> params =formPostBodyToMap(requestBody);
+  response.setStatus(301).setLocationHeader("/person/update");
+  Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   for(var p in persons){
     if(params[p.name] == "on"){
@@ -36,8 +33,7 @@ void checkPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
 
 void deletePersonFormEndpoint(HttpRequest request, SsrResponse response) async {
   response.setStatus(301).setLocationHeader("/person/delete");
-  String requestBody = await utf8.decodeStream(request);
-  Map<String, String> params =formPostBodyToMap(requestBody);
+  Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   List<Person> filtered = [];
   for(var p in persons){
@@ -46,4 +42,16 @@ void deletePersonFormEndpoint(HttpRequest request, SsrResponse response) async {
     } 
   }
   savePeople(filtered);
+}
+
+void delaysPersonFormEndpoint(HttpRequest request, SsrResponse response) async {
+  response.setStatus(301).setLocationHeader("/person/update");
+  Map<String, String> params = await parseFormData(request);
+  print(params);
+  List<Person> persons = getPeople();
+  for(var p in persons){
+    int delays = int.parse(params["${p.name}-delays"] ?? "0");
+    p.currentDelays = delays;
+  }
+  savePeople(persons);
 }

@@ -1,4 +1,6 @@
-Map<String, String> formPostBodyToMap(String formPostBody){
+import 'dart:io';
+import 'dart:convert';
+Map<String, String> formPostBodyToMap<T>(String formPostBody){
   List<String> params = formPostBody.split("&");
   Map<String, String> result = {};
   for(var param in params){
@@ -11,4 +13,10 @@ Map<String, String> formPostBodyToMap(String formPostBody){
     }
   }
   return result;
+}
+
+Future<Map<String, String>> parseFormData<T>(HttpRequest request) async {
+  String requestBody = await utf8.decodeStream(request);
+  Map<String, String> params = formPostBodyToMap(requestBody);
+  return params;
 }

@@ -1,19 +1,22 @@
 class Person {
   String name;
   bool checked;
-  Person(this.name, [this.checked = false]);
+  int currentDelays; 
+  Person(this.name, [this.checked = false, this.currentDelays = 0]);
 
   Map<String, dynamic> toJson() {
     return {
       "name": name,
-      "checked": checked
+      "checked": checked,
+      "currentDelays": currentDelays,
     };
   }
 
   static Person fromJson(Map<String, dynamic> jsonNode){
     return Person(
       jsonNode["name"],
-      jsonNode["checked"]
+      jsonNode["checked"],
+      jsonNode["currentDelays"],
       );
   }
 }
