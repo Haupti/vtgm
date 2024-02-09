@@ -10,10 +10,10 @@ import '../ssr/html/style.dart';
 
 void homePage(HttpRequest request, SsrResponse response) {
   Style headerStyle = Style(color: "white", textAlign: "left", padding: "15px", border: "1px solid #54585d", backgroundColor: "#54585d");
-  Style dataStyle = Style(textAlign: "left", padding: "15px");
-  Style checkedStyle = Style(textAlign: "center", padding: "15px");
+  Style dataStyle = Style(textAlign: "left", padding: "5px 15px");
+  Style checkedStyle = Style(textAlign: "center", padding: "5px 15px");
   Style tableStyle = Style(borderCollapse: "collapse");
-  Style bodyRowStyle = Style(border: "1px solid #54585d");
+  Style bodyRowStyle = Style(border: "1px solid #54585d", padding: "1px");
   List<Person> persons = getPeople();
   RootPage page = basePage([
     H1(text: "Statistics", style: Style(fontSize: "24px")),
@@ -29,7 +29,7 @@ void homePage(HttpRequest request, SsrResponse response) {
         TableRow(style: bodyRowStyle,tableData:[
           TableData(text: p.name, style: dataStyle),
           TableData(text: p.checked ? "done" : " ", style: checkedStyle),
-          TableData(text: "${p.currentDelays}", style: checkedStyle),
+          TableData(text: "${p.currentDelays}", style: dataStyle),
         ])
       ).toList(),
     ])
