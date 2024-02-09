@@ -14,6 +14,7 @@ void homePage(HttpRequest request, SsrResponse response) {
   Style checkedStyle = Style(textAlign: "center");
   List<Person> persons = getPeople();
   RootPage page = basePage([
+    H1(text: "Statistics", style: Style(fontSize: "24px")),
     Table(rows: [
       TableRow(tableData: [TableHeader(text: "prepared trainig?",style: headerStyle), TableHeader(text: "name",style: headerStyle)]),
       ...persons.map((Person p) =>
