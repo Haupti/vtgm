@@ -8,5 +8,6 @@ COPY data/* /app/data/
 
 WORKDIR /app
 
+EXPOSE 8080
 ENTRYPOINT ["./main"]
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
