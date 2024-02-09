@@ -1,14 +1,17 @@
 name: vtgm
 description: A sample command-line application.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
 
 environment:
   sdk: ^3.0.7
 
-# Add regular dependencies here.
+publish_to: none
+
 dependencies:
-  # path: ^1.8.0
+   ssr:
+    git:
+      url: git@github.com:Haupti/dart-ssr.git
+      ref: 47585ec5db038b336258c01c536645f3499c3fd5 # commit hash
 
 dev_dependencies:
   lints: ^2.0.0

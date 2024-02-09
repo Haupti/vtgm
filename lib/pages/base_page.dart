@@ -1,8 +1,5 @@
-import 'package:vtgm/ssr/http/auth.dart';
-
-import '../ssr/html/component.dart';
-import '../ssr/html/root_page.dart';
-import '../ssr/html/style.dart';
+import 'package:ssr/ssr.dart';
+import 'package:ssr/html.dart';
 
 Component navBar() {
   Style aStyle = Style(
@@ -46,7 +43,7 @@ RootPage basePage(List<Component> children){
   Style style = Style(
     padding: "10px 10px 0 10px"
   );
-  return RootPage([
+  return RootPage(title:"VTGM", elems:[
     navBar(),
     Div(children: children, style: style)
   ]);

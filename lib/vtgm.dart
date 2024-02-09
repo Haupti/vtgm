@@ -1,7 +1,4 @@
-import 'package:vtgm/ssr/http/auth.dart';
-
-import 'ssr/http/server.dart';
-import 'ssr/http/request_handler.dart';
+import 'package:ssr/ssr.dart';
 import 'pages/home_page.dart';
 import 'pages/add_person_page.dart';
 import 'pages/manage_person_page.dart';

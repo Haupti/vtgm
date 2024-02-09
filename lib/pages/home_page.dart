@@ -1,12 +1,9 @@
-import '../ssr/http/server.dart';
-import '../ssr/html/component.dart';
 import 'base_page.dart';
 import '../dataproviders/repository.dart';
-import '../ssr/http/response.dart';
 import 'dart:io';
-import '../ssr/html/root_page.dart';
 import '../domain.dart';
-import '../ssr/html/style.dart';
+import 'package:ssr/ssr.dart';
+import 'package:ssr/html.dart';
 
 void homePage(HttpRequest request, SsrResponse response) {
   Style headerStyle = Style(color: "white", textAlign: "left", padding: "15px", border: "1px solid #54585d", backgroundColor: "#54585d");

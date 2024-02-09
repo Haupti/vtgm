@@ -1,12 +1,9 @@
 import 'package:vtgm/dataproviders/repository.dart';
 import 'base_page.dart';
-import '../ssr/html/component.dart';
-import '../ssr/http/response.dart';
-import '../ssr/http/server.dart';
+import 'package:ssr/ssr.dart';
+import 'package:ssr/html.dart';
 import 'dart:io';
-import '../ssr/html/root_page.dart';
 import '../domain.dart';
-import '../ssr/html/style.dart';
 
 void deletePersonPage(HttpRequest request, SsrResponse response) {
   List<Person> persons = getPeople();

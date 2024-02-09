@@ -1,5 +1,5 @@
 import 'dart:io';
-import '../ssr/http/response.dart';
+import 'package:ssr/ssr.dart';
 import 'parse_form_post.dart';
 import '../dataproviders/repository.dart';
 import '../domain.dart';
