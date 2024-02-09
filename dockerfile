@@ -3,7 +3,7 @@ RUN apk add --no-cache libc6-compat
 
 RUN mkdir /app
 RUN mkdir -p /app /app/data
-COPY build/main /app/bin/main
+COPY main /app/main
 COPY data/* /app/data/
 
 WORKDIR /app
