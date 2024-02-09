@@ -16,7 +16,6 @@ void defaultHandleNotFound(HttpRequest request){
 void server(int port, List<RequestHandler> handlers) async {
   HttpServer server = await HttpServer.bind("localhost", port);
   await server.forEach((HttpRequest request) {
-      print(request);
       bool isHandled = false;
       for (final h in handlers) {
         if(h.isResponsible(request)){
