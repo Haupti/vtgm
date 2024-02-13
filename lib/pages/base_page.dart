@@ -2,38 +2,28 @@ import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
 
 Component navBar() {
-  Style aStyle = Style(
-    backgroundColor: "white",
-    color: "black",
-    border: "2px solid #bcc5d4",
-    boxShadow: "3px 3px #bcc5d4",
-    textDecoration: "none",
-    padding: "4px 8px",
-  );
-
-  Style wrapperStyle = Style(
-    display: "flex",
-    gap: "10px",
-    padding: "0 0 10px 10px",
-    borderBottom: "2px solid black",
-    alignItems: "center",
-    justifyContent: "start",
-  );
-
-  var home = Anchor(href: "/", text: "home", style: aStyle);
-  var personCheck = Anchor(href: "/person/update", text: "manage", style: aStyle);
-  var personDelete = Anchor(href: "/person/delete", text: "delete person", style: aStyle);
-  var personAdd = Anchor(href: "/person/add", text: "add person", style: aStyle);
+  var brand = Component.fromHtmlString("""<a href="/" class="navbar-brand mr-2">TGM H5</a>""");
+  var overview = Component.fromHtmlString("""<a href="/" class="btn btn-link">overview</a>""");
+  var personCheck = Component.fromHtmlString("""<a href="/person/update" class="btn btn-link">manager</a>""");
+  var personDelete = Component.fromHtmlString("""<a href="/person/delete" class="btn btn-link">delete member</a>""");
+  var personAdd = Component.fromHtmlString("""<a href="/person/add" class="btn btn-link">add member</a>""");
   AuthRole currentRole = getCurrentAuthorizedUserRole();
-  var visibleAnchors = [];
+  List<Component> visibleAnchors = [];
   if (currentRole == AuthRole.basic) {
-    visibleAnchors = [home];
+    visibleAnchors = [brand, overview];
   } else if (currentRole == AuthRole.mod) {
-    visibleAnchors = [home, personCheck];
+    visibleAnchors = [brand, overview, personCheck];
   } else if (currentRole == AuthRole.admin) {
-    visibleAnchors = [home, personCheck, personDelete, personAdd];
+    visibleAnchors = [brand, overview, personCheck, personDelete, personAdd];
   }
-  return Div(children: [Paragraph(text: "H5 TGM VB"), ...visibleAnchors], style: wrapperStyle);
+  return Component.fromHtmlString("""
+  <header class="navbar" style="padding: 16px 16px 0 16px;">
+    <section class="navbar-section">
+      ${renderMany(visibleAnchors)}
+    </section>
+  </header>
+  <div class="divider"></div>
+  """);
 }
 
 String vtgmRoot(String title, String content) {
@@ -51,7 +41,7 @@ String vtgmRoot(String title, String content) {
         </head>
       <body>
         ${navBar().render()}
-          <div style="margin: auto;">
+          <div>
             $content
           </div>
       <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>

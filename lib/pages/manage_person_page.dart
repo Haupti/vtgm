@@ -1,4 +1,3 @@
-import 'package:nanoid/nanoid.dart';
 import 'package:vtgm/dataproviders/repository.dart';
 import 'base_page.dart';
 import 'package:ssr/ssr.dart';
@@ -57,7 +56,7 @@ void managePersonPage(SsrRequest request, SsrResponse response) {
         <h1>Update</h1>
         <h2>Who has prepared workout so far?</h2>
         ${_userWorkoutForm(persons)}
-        <h2>Whats the fine everybody has to pay (in Euro)?</h2>
+        <h2 style="margin: .5em 0 .5em 0;">Whats the fine everybody has to pay (in Euro)?</h2>
         ${_usersFineForm(persons)}
       </div>
     """)
