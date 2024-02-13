@@ -8,7 +8,8 @@ environment:
 publish_to: none
 
 dependencies:
-   ssr:
+  nanoid: ^1.0.0
+  ssr:
     git:
       url: git@github.com:Haupti/dart-ssr.git
       ref: de095de33796f1bdf4224b7a29a5d48bf55b037e # commit hash
