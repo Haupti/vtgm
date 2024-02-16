@@ -4,8 +4,19 @@ import 'package:ssr/html.dart';
 
 void addPersonPage(SsrRequest request, SsrResponse response) {
   RootPage page = basePage([
-    H1(text: "Add", style: Style(fontSize: "24px")),
-    Form(formInputs: [FormInput(type: "text", name: "name", labelText: "name:")], action: "/person/add", submitButtonText: "save")
+    Component.fromHtmlString("""
+      <h1>
+        <form action="/person/add" method="post" styled="padding: 0 0 0 16px;">
+          <div class="form-group">
+            <label class="form-label" for="add-person-input">Name</label>
+            <input class="form-input" type="text" id="add-person-input" name="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="save" class="btn btn-primary"/>
+          </div>
+        </form>
+      </h1>
+    """)
   ]);
   okHtmlResponse(response, page);
 }
