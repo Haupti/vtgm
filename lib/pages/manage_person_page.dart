@@ -39,7 +39,7 @@ Component _toUserFineInput(Person p) {
 
 String _usersFineForm(List<Person> persons) {
   return """
-    <form action="/person/delays" method="post" style="padding: 0 0 0 16px;">
+    <form action="/person/delays" method="post" style="padding: 0 0 32px 16px;">
       ${renderMany(persons.map(_toUserFineInput).toList())}
       <div class="form-group">
         <input type="submit" value="save" class="btn btn-primary"/>
@@ -61,31 +61,5 @@ void managePersonPage(SsrRequest request, SsrResponse response) {
       </div>
     """)
   ]);
-  /*
-    H1(text: "Update", style: Style(fontSize: "24px")),
-    Div(children: [
-      H2(text: "workout"),
-      Div(style: Style(margin: "0 5vw 0 0"), children: [
-        Form(
-          formInputs: persons
-              .map((Person p) => FormInput(type: "checkbox", name: p.name, labelText: p.name, required: false, checked: p.checked, style: style))
-              .toList(),
-          action: "/person/check",
-          submitButtonText: "check",
-        )
-      ]),
-      Div(children: [
-        H2(text: "fine/euro"),
-        Form(
-          formInputs: persons
-              .map((Person p) =>
-                  FormInput(type: "number", name: "${p.name}-delays", labelText: p.name, required: true, value: "${p.currentDelays}", style: style))
-              .toList(),
-          action: "/person/delays",
-          submitButtonText: "update",
-        )
-      ]),
-    ])
-    */
   okHtmlResponse(response, page);
 }
