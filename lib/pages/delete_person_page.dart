@@ -28,7 +28,6 @@ String _userDeleteForm(List<Person> persons) {
 
 void deletePersonPage(SsrRequest request, SsrResponse response) {
   List<Person> persons = getPeople();
-  Style style = Style(display: "flex", flexDirection: "row-reverse", justifyContent: "left");
   RootPage page = basePage([
     Component.fromHtmlString("""
       <div style="max-width: 1000px; margin: auto;">
