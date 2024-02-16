@@ -1,3 +1,4 @@
+import 'package:nanoid/nanoid.dart';
 import 'package:ssr/ssr.dart';
 import 'parse_form_post.dart';
 import '../dataproviders/repository.dart';
@@ -12,8 +13,9 @@ void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
     print("error: name parameter is required but not in request body");
     return;
   }
-  persons.add(Person(name));
+  persons.add(Person(nanoid(), name));
   savePeople(persons);
+  response.close();
 }
 
 void checkPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
@@ -21,13 +23,14 @@ void checkPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   for (var p in persons) {
-    if (params[p.name] == "on") {
+    if (params[p.id] == "on") {
       p.checked = true;
-    } else if (params[p.name] == null) {
+    } else if (params[p.id] == null) {
       p.checked = false;
     }
   }
   savePeople(persons);
+  response.close();
 }
 
 void deletePersonFormEndpoint(SsrRequest request, SsrResponse response) async {
@@ -36,21 +39,22 @@ void deletePersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   List<Person> persons = getPeople();
   List<Person> filtered = [];
   for (var p in persons) {
-    if (params[p.name] != "on") {
+    if (params[p.id] != "on") {
       filtered.add(p);
     }
   }
   savePeople(filtered);
+  response.close();
 }
 
 void delaysPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   response.setStatus(301).setLocationHeader("/person/update");
   Map<String, String> params = await parseFormData(request);
-  print(params);
   List<Person> persons = getPeople();
   for (var p in persons) {
-    int delays = int.parse(params["${p.name}-delays"] ?? "0");
+    int delays = int.parse(params[p.id] ?? "0");
     p.currentDelays = delays;
   }
   savePeople(persons);
+  response.close();
 }

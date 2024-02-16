@@ -5,7 +5,8 @@ import 'package:ssr/html.dart';
 void addPersonPage(SsrRequest request, SsrResponse response) {
   RootPage page = basePage([
     Component.fromHtmlString("""
-      <h1> Add Player </h1>
+      <div style="max-width: 1000px; margin: auto;">
+        <h1> Add Player </h1>
         <form action="/person/add" method="post" styled="padding: 0 0 0 16px;">
           <div class="form-group">
             <label class="form-label" for="add-person-input">Name</label>
@@ -15,6 +16,7 @@ void addPersonPage(SsrRequest request, SsrResponse response) {
             <input type="submit" value="save" class="btn btn-primary"/>
           </div>
         </form>
+      </div>
     """)
   ]);
   okHtmlResponse(response, page);

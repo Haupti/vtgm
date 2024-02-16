@@ -8,7 +8,7 @@ Component _toWorkoutInput(Person p) {
   return Component.fromHtmlString("""
     <div class="form-group">
       <label class="form-checkbox">
-        <input type="checkbox" name="${p.name}" ${p.checked ? "checked" : ""}>
+        <input type="checkbox" name="${p.id}" ${p.checked ? "checked" : ""}>
         <i class="form-icon"></i>${p.name}
       </label>
     </div>
@@ -30,7 +30,7 @@ Component _toUserFineInput(Person p) {
   return Component.fromHtmlString("""
       <div class="form-group">
         <label class="form-number">
-          <input type="number" name="${p.name}-delays" value="${p.currentDelays}"/>
+          <input type="number" name="${p.id}" value="${p.currentDelays}"/>
           <i class="form-icon"></i>${p.name}
         </label>
         </div>
