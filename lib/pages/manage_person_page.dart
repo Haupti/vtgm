@@ -1,7 +1,7 @@
 import 'package:vtgm/dataproviders/repository.dart';
-import 'base_page.dart';
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
+import 'package:vtgm/pages/component/base_page.dart';
 import '../domain.dart';
 
 Component _toWorkoutInput(Person p) {

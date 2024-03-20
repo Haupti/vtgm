@@ -1,6 +1,6 @@
-import 'base_page.dart';
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
+import 'package:vtgm/pages/component/base_page.dart';
 
 void addPersonPage(SsrRequest request, SsrResponse response) {
   RootPage page = basePage([

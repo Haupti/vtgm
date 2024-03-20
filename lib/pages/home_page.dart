@@ -1,15 +1,11 @@
-import 'base_page.dart';
+import 'package:vtgm/pages/component/base_page.dart';
 import '../dataproviders/repository.dart';
 import '../domain.dart';
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
 
-void homePage(SsrRequest request, SsrResponse response) {
-  List<Person> persons = getPeople();
-  RootPage page = basePage([
-    Component.fromHtmlString("""
-      <div style="max-width: 1000px; margin: auto;">
-        <h1>Overview</h1>
+String overviewTable(List<Person> persons) {
+  return """
         <table class="table">
           <thead>
             <tr>
@@ -28,6 +24,16 @@ void homePage(SsrRequest request, SsrResponse response) {
             """)).toList())}
           </tbody>
         </table
+        """;
+}
+
+void homePage(SsrRequest request, SsrResponse response) {
+  List<Person> persons = getPeople();
+  RootPage page = basePage([
+    Component.fromHtmlString("""
+      <div style="max-width: 1000px; margin: auto;">
+        <h1>Overview</h1>
+        ${overviewTable(persons)}
       </div>
     """)
   ]);
