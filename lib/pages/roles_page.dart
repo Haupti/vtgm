@@ -61,6 +61,7 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
               <th></th>
               <th>Role</th>
               <th>Name</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -72,16 +73,16 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
               </tr>
             """)).toList())}
             <tr>
-              <form hx-post="/person/roles/set/add" hx-include="[name='roleNameId',id='memberIdSelect']">
+                    <form hx-post="/roles/set/add">
                 <td></td>
-                <td><input type="text" name="roleNameId"/></td>
+                <td><input type="text" name="roleName"/></td>
                 <td>
-                    <select class="form-select" id="memberIdSelect">
+                    <select class="form-select" id="memberIdSelect" name="memberId">
                       ${persons.map((it) => """<option value="${it.id}">${it.name}</option>""")}
                     </select>
                 </td>
-                <td><input type="submit"></td>
-              </form>
+                <td><input class="btn btn-primary" type="submit" value="Save"/></td>
+                </form>
             </tr>
           </tbody>
         </table
