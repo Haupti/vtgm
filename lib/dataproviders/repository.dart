@@ -1,6 +1,6 @@
-import "../../domain.dart";
 import 'dart:io';
 import "dart:convert";
+import 'package:vtgm/domain/person.dart';
 
 File peoplesFile = File("data/people.json");
 

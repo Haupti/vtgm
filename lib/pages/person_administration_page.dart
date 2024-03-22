@@ -1,7 +1,7 @@
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
 import 'package:vtgm/dataproviders/repository.dart';
-import 'package:vtgm/domain.dart';
+import 'package:vtgm/domain/person.dart';
 import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
 

@@ -1,5 +1,6 @@
 enum Endpoints {
   home("/"),
+  infoPage("/info"),
   rolesOverview("/roles"),
   rolesEdit("/roles/edit"),
   personAdministration("/person/administration"),

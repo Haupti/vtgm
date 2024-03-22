@@ -3,7 +3,8 @@ import 'package:ssr/ssr.dart';
 import 'package:vtgm/api/parse_form_post.dart';
 import 'package:vtgm/dataproviders/repository.dart';
 import 'package:vtgm/dataproviders/responsibility_repository.dart';
-import 'package:vtgm/domain.dart';
+import 'package:vtgm/domain/person.dart';
+import 'package:vtgm/domain/responsibility.dart';
 import 'package:vtgm/pages/roles_page.dart';
 
 void deleteRoleEndpoint(SsrRequest request, SsrResponse response) async {

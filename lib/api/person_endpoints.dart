@@ -1,9 +1,9 @@
 import 'package:nanoid/nanoid.dart';
 import 'package:ssr/ssr.dart';
+import 'package:vtgm/domain/person.dart';
 import 'package:vtgm/pages/person_administration_page.dart';
 import 'parse_form_post.dart';
 import '../dataproviders/repository.dart';
-import '../domain.dart';
 
 void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   Map<String, String> params = await parseFormData(request);

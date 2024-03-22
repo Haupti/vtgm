@@ -1,8 +1,9 @@
 import 'package:vtgm/dataproviders/responsibility_repository.dart' as repo;
+import 'package:vtgm/domain/person.dart';
+import 'package:vtgm/domain/responsibility.dart';
 import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
 import '../dataproviders/repository.dart' as people_repo;
-import '../domain.dart';
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
 
