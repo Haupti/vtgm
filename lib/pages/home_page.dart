@@ -18,8 +18,8 @@ String overviewTable(List<Person> persons) {
             ${renderMany(persons.map((p) => Component.fromHtmlString("""
               <tr>
                 <td>${p.name}</td>
-                <td>${p.checked ? "done" : ""}</td>
-                <td>${p.currentDelays}</td>
+                <td>${p.workoutsPrepared}</td>
+                <td>${p.openFine}</td>
               </tr>
             """)).toList())}
           </tbody>

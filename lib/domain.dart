@@ -1,16 +1,16 @@
 class Person {
   String id;
   String name;
-  bool checked;
-  int currentDelays;
-  Person(this.id, this.name, [this.checked = false, this.currentDelays = 0]);
+  int workoutsPrepared;
+  int openFine;
+  Person(this.id, this.name, [this.workoutsPrepared = 0, this.openFine = 0]);
 
   Map<String, dynamic> toJson() {
     return {
       "id": id,
       "name": name,
-      "checked": checked,
-      "currentDelays": currentDelays,
+      "workoutsPrepared": workoutsPrepared,
+      "openFine": openFine,
     };
   }
 
@@ -18,8 +18,8 @@ class Person {
     return Person(
       jsonNode["id"],
       jsonNode["name"],
-      jsonNode["checked"],
-      jsonNode["currentDelays"],
+      jsonNode["workoutsPrepared"],
+      jsonNode["openFine"],
     );
   }
 }

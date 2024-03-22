@@ -1,11 +1,12 @@
 import 'package:nanoid/nanoid.dart';
 import 'package:ssr/ssr.dart';
+import 'package:vtgm/endpoints.dart';
 import 'parse_form_post.dart';
 import '../dataproviders/repository.dart';
 import '../domain.dart';
 
 void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader("/person/add");
+  response.setStatus(301).setLocationHeader(Endpoints.personAdd.path);
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   String? name = params["name"];
@@ -19,22 +20,18 @@ void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
 }
 
 void checkPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader("/person/update");
+  response.setStatus(301).setLocationHeader(Endpoints.personManager.path);
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   for (var p in persons) {
-    if (params[p.id] == "on") {
-      p.checked = true;
-    } else if (params[p.id] == null) {
-      p.checked = false;
-    }
+      p.workoutsPrepared = int.parse(params[p.id] ?? "0");
   }
   savePeople(persons);
   response.close();
 }
 
 void deletePersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader("/person/delete");
+  response.setStatus(301).setLocationHeader(Endpoints.personDelete.path);
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   List<Person> filtered = [];
@@ -48,12 +45,12 @@ void deletePersonFormEndpoint(SsrRequest request, SsrResponse response) async {
 }
 
 void delaysPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader("/person/update");
+  response.setStatus(301).setLocationHeader(Endpoints.personManager.path);
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   for (var p in persons) {
-    int delays = int.parse(params[p.id] ?? "0");
-    p.currentDelays = delays;
+    int openFine = int.parse(params[p.id] ?? "0");
+    p.openFine = openFine;
   }
   savePeople(persons);
   response.close();

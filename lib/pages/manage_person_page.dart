@@ -8,8 +8,8 @@ import '../domain.dart';
 Component _toWorkoutInput(Person p) {
   return Component.fromHtmlString("""
     <div class="form-group">
-      <label class="form-checkbox">
-        <input type="checkbox" name="${p.id}" ${p.checked ? "checked" : ""}>
+      <label class="form-number">
+        <input type="number" name="${p.id}" value="${p.workoutsPrepared}">
         <i class="form-icon"></i>${p.name}
       </label>
     </div>
@@ -31,7 +31,7 @@ Component _toUserFineInput(Person p) {
   return Component.fromHtmlString("""
       <div class="form-group">
         <label class="form-number">
-          <input type="number" name="${p.id}" value="${p.currentDelays}"/>
+          <input type="number" name="${p.id}" value="${p.openFine}"/>
           <i class="form-icon"></i>${p.name}
         </label>
         </div>
