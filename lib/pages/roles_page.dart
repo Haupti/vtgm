@@ -18,8 +18,7 @@ Person? findPersonResponsible(Responsibility resp, List<Person> people) {
 void rolesOverviewPage(SsrRequest request, SsrResponse response) {
   List<Person> persons = people_repo.getPeople();
   List<Responsibility> responsibilities = repo.getResponsibilities();
-  RootPage page = basePage([
-    Component.fromHtmlString("""
+  RootPage page = basePage("""
       <div style="max-width: 1000px; margin: auto;">
         <h1>Overview</h1>
         <table class="table">
@@ -39,8 +38,7 @@ void rolesOverviewPage(SsrRequest request, SsrResponse response) {
           </tbody>
         </table
       </div>
-    """)
-  ]);
+    """);
   okHtmlResponse(response, page);
 }
 
@@ -58,8 +56,8 @@ String roleRow(Responsibility responsibility, List<Person> persons) {
 void rolesSetPage(SsrRequest request, SsrResponse response) {
   List<Person> persons = people_repo.getPeople();
   List<Responsibility> responsibilities = repo.getResponsibilities();
-  RootPage page = basePage([
-    Component.fromHtmlString("""
+  RootPage page = basePage(
+    """
       <div style="max-width: 1000px; margin: auto;">
         <h1>Overview</h1>
         <table class="table">
@@ -88,7 +86,6 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
           </tbody>
         </table
       </div>
-    """)
-  ]);
+    """);
   okHtmlResponse(response, page);
 }

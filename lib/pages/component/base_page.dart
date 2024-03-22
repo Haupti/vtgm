@@ -26,7 +26,15 @@ String vtgmRoot(String title, String content) {
   """;
 }
 
-RootPage basePage(List<Component> children) {
+RootPage basePage(String mainSection) {
   Style style = Style(padding: "10px 10px 0 10px");
-  return RootPage(title: "VTGM", elems: [Div(children: children, style: style)], customRoot: vtgmRoot);
+  return RootPage(title: "VTGM", elems: [Div(children: [sectionMain(mainSection)], style: style)], customRoot: vtgmRoot);
+}
+
+Component sectionMain(String content){
+    return Component.fromHtmlString("""
+      <div style="max-width: 1000px; margin: auto;">
+          $content
+      </div>
+    """);
 }

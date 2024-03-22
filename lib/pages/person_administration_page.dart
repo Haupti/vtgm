@@ -25,8 +25,7 @@ String playerRow(Person person) {
 
 void personAdministrationPage(SsrRequest request, SsrResponse response) {
   List<Person> members = getPeople();
-  RootPage page = basePage([
-    Component.fromHtmlString("""
+  RootPage page = basePage("""
       <div style="max-width: 1000px; margin: auto;">
         <h1> Member Administration </h1>
         <table class="table">
@@ -49,7 +48,6 @@ void personAdministrationPage(SsrRequest request, SsrResponse response) {
             </tbody>
         </table>
       </div>
-    """)
-  ]);
+    """);
   okHtmlResponse(response, page);
 }

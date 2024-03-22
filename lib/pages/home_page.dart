@@ -1,5 +1,6 @@
 import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
+import 'package:vtgm/pages/component/main_section.dart';
 import '../dataproviders/repository.dart';
 import '../domain.dart';
 import 'package:ssr/ssr.dart';
@@ -112,12 +113,6 @@ String overviewTableComponent() {
 }
 
 void homePage(SsrRequest request, SsrResponse response) {
-  RootPage page = basePage([
-    Component.fromHtmlString("""
-      <div style="max-width: 1000px; margin: auto;">
-            ${overviewTableComponent()}
-      </div>
-    """)
-  ]);
+  RootPage page = basePage(overviewTableComponent());
   okHtmlResponse(response, page);
 }
