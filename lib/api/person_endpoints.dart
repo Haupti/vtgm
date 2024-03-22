@@ -1,6 +1,5 @@
 import 'package:nanoid/nanoid.dart';
 import 'package:ssr/ssr.dart';
-import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/person_administration_page.dart';
 import 'parse_form_post.dart';
 import '../dataproviders/repository.dart';
@@ -35,17 +34,6 @@ void apiPersonUpdateEndpoint(SsrRequest request, SsrResponse response) async {
   response.close();
 }
 
-void checkPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader(Endpoints.personManager.path);
-  Map<String, String> params = await parseFormData(request);
-  List<Person> persons = getPeople();
-  for (var p in persons) {
-    p.workoutsPrepared = int.parse(params[p.id] ?? "0");
-  }
-  savePeople(persons);
-  response.close();
-}
-
 void deletePersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
@@ -63,14 +51,3 @@ void deletePersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   response.write("");
 }
 
-void delaysPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader(Endpoints.personManager.path);
-  Map<String, String> params = await parseFormData(request);
-  List<Person> persons = getPeople();
-  for (var p in persons) {
-    int openFine = int.parse(params[p.id] ?? "0");
-    p.openFine = openFine;
-  }
-  savePeople(persons);
-  response.close();
-}

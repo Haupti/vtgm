@@ -9,7 +9,7 @@ String playerRow(Person person) {
   return """<tr id="personRow${person.id}">
                 <td><button
                         class="btn btn-error"
-                        hx-post="${Endpoints.personDelete.path}"
+                        hx-post="${Endpoints.apiPersonDelete.path}"
                         hx-target="#personRow${person.id}"
                         hx-swap="outerhtml"
                         hx-vals='{"personId":"${person.id}"}'
@@ -40,7 +40,7 @@ void personAdministrationPage(SsrRequest request, SsrResponse response) {
             <tbody>
                 ${members.map((it) => playerRow(it)).join()}
                 <tr id="playerInsertTargetId">
-                    <form hx-post="${Endpoints.personAdd.path}" hx-target="#playerInsertTargetId" hx-swap="beforebegin">
+                    <form hx-post="${Endpoints.apiPersonAdd.path}" hx-target="#playerInsertTargetId" hx-swap="beforebegin">
                         <td></td>
                         <td><input type="text" name="name"/></td>
                         <td><input type="submit" value="Save" class="btn btn-primary"></td>
