@@ -1,6 +1,5 @@
 import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
-import 'package:vtgm/pages/component/main_section.dart';
 import '../dataproviders/repository.dart';
 import '../domain.dart';
 import 'package:ssr/ssr.dart';
