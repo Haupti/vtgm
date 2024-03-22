@@ -56,10 +56,8 @@ String editableOverviewTableComponent() {
         <div id="$swapId">
             ${titleWithButton(ButtonType.close, swapId)}
             <form
-                id="person-update-form"
                 hx-post="${Endpoints.apiPersonUpdate.path}"
-                hx-swap="outerhtml"
-                hx-target="#person-update-form"
+                hx-swap="none"
             >
                 <div style="display: flex; justify-content: flex-end;"><input type="submit" value="Save" class="btn btn-success"/></div>
                 <table class="table">

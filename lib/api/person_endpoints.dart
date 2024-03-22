@@ -22,7 +22,15 @@ void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
 }
 
 void apiPersonUpdateEndpoint(SsrRequest request, SsrResponse response) async {
-  print(request.requestData);
+  Map<String, String> params = await parseFormData(request);
+
+  List<Person> persons = getPeople();
+  persons = persons.map((it) {
+    it.workoutsPrepared = int.parse(params["workouts%3A${it.id}"] ?? "${it.workoutsPrepared}");
+    it.openFine = int.parse(params["fine%3A${it.id}"] ?? "${it.openFine}");
+    return it;
+  }).toList();
+  savePeople(persons);
   response.setStatus(200);
   response.close();
 }
