@@ -1,6 +1,7 @@
 import 'package:vtgm/dataproviders/repository.dart';
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
+import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
 import '../domain.dart';
 
@@ -17,7 +18,7 @@ Component _toWorkoutInput(Person p) {
 
 String _userWorkoutForm(List<Person> persons) {
   return """
-    <form action="/person/check" method="post" style="padding: 0 0 0 16px;">
+    <form action="${Endpoints.apiPersonCheckUpdate.path}" method="post" style="padding: 0 0 0 16px;">
       ${renderMany(persons.map(_toWorkoutInput).toList())}
       <div class="form-group">
         <input type="submit" value="save" class="btn btn-primary"/>
@@ -39,7 +40,7 @@ Component _toUserFineInput(Person p) {
 
 String _usersFineForm(List<Person> persons) {
   return """
-    <form action="/person/delays" method="post" style="padding: 0 0 32px 16px;">
+    <form action="${Endpoints.apiPersonDelaysUpdate.path}" method="post" style="padding: 0 0 32px 16px;">
       ${renderMany(persons.map(_toUserFineInput).toList())}
       <div class="form-group">
         <input type="submit" value="save" class="btn btn-primary"/>

@@ -1,6 +1,7 @@
 import 'package:vtgm/dataproviders/repository.dart';
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
+import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
 import '../domain.dart';
 
@@ -17,7 +18,7 @@ Component _toDeleteInput(Person p) {
 
 String _userDeleteForm(List<Person> persons) {
   return """
-    <form action="/person/delete" method="post" style="padding: 0 0 0 16px;">
+    <form action="${Endpoints.apiPersonDelete.path}" method="post" style="padding: 0 0 0 16px;">
       ${renderMany(persons.map(_toDeleteInput).toList())}
       <div class="form-group">
         <input type="submit" value="delete" class="btn btn-primary"/>

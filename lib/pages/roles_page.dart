@@ -1,4 +1,5 @@
 import 'package:vtgm/dataproviders/responsibility_repository.dart' as repo;
+import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
 import '../dataproviders/repository.dart' as people_repo;
 import '../domain.dart';
@@ -73,7 +74,7 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
               </tr>
             """)).toList())}
             <tr>
-                    <form hx-post="/roles/set/add">
+                    <form hx-post="${Endpoints.apiRolesEditAdd.path}">
                 <td></td>
                 <td><input type="text" name="roleName"/></td>
                 <td>
