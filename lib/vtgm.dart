@@ -21,7 +21,8 @@ void vtgm(List<String> _) {
     RequestHandler(method: RequestMethod.mPost, path: Endpoints.apiPersonCheckUpdate.path, handler: checkPersonFormEndpoint).setMinimumRole(AuthRole.mod),
     RequestHandler(method: RequestMethod.mPost, path: Endpoints.apiPersonDelaysUpdate.path, handler: delaysPersonFormEndpoint).setMinimumRole(AuthRole.mod),
     RequestHandler(method: RequestMethod.mPost, path: Endpoints.apiPersonDelete.path, handler: deletePersonFormEndpoint).setMinimumRole(AuthRole.admin),
-    RequestHandler(method: RequestMethod.mPost, path: Endpoints.apiRolesEditAdd.path, handler: addRoleEndpoint).setMinimumRole(AuthRole.admin),
+    RequestHandler(method: RequestMethod.mPost, path: Endpoints.apiRoleAdd.path, handler: addRoleEndpoint).setMinimumRole(AuthRole.admin),
+    RequestHandler(method: RequestMethod.mPost, path: Endpoints.apiRoleDelete.path, handler: deleteRoleEndpoint).setMinimumRole(AuthRole.admin),
   ];
   server(8080, handlers);
 }

@@ -49,6 +49,16 @@ String memberSelect(List<Person> persons) {
             """;
 }
 
+String roleRow(Responsibility responsibility, List<Person> persons) {
+  return """
+              <tr id="responsibility${responsibility.id}">
+                <td><button class="btn" hx-post="${Endpoints.apiRoleDelete.path}" hx-vals='{"roleId":"${responsibility.id}"}' hx-target="#responsibility${responsibility.id}" hx-swap="outerHTML"><i class="icon icon-cross"></i></button></td>
+                <td>${responsibility.name}</td>
+                <td>${findPersonResponsible(responsibility, persons)?.name ?? " "}</td>
+              </tr>
+            """;
+}
+
 void rolesSetPage(SsrRequest request, SsrResponse response) {
   List<Person> persons = people_repo.getPeople();
   List<Responsibility> responsibilities = repo.getResponsibilities();
@@ -66,15 +76,10 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
             </tr>
           </thead>
           <tbody>
-            ${renderMany(responsibilities.map((responsibility) => Component.fromHtmlString("""
-              <tr>
-                <td><button class="btn"><i class="icon icon-cross"></i><button></td>
-                <td>${responsibility.name}</td>
-                <td>${findPersonResponsible(responsibility, persons)?.name ?? " "}</td>
-              </tr>
-            """)).toList())}
+            ${responsibilities.map((it) => roleRow(it, persons))}
+            <div id="respPlaceholderId"></div>
             <tr>
-                    <form hx-post="${Endpoints.apiRolesEditAdd.path}">
+              <form hx-post="${Endpoints.apiRoleAdd.path}" hx-target="#respPlaceholderId" hx-swap="afterend">
                 <td></td>
                 <td><input type="text" name="roleName"/></td>
                 <td>
@@ -83,7 +88,7 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
                     </select>
                 </td>
                 <td><input class="btn btn-primary" type="submit" value="Save"/></td>
-                </form>
+              </form>
             </tr>
           </tbody>
         </table

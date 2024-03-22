@@ -1,15 +1,16 @@
 enum Endpoints {
   home("/"),
   rolesOverview("/roles"),
-  rolesEdit("/roles/set"),
+  rolesEdit("/roles/edit"),
   personAdd("/person/add"),
   personManager("/person/update"),
   personDelete("/person/delete"),
   apiPersonAdd("/person/add"),
   apiPersonCheckUpdate("/person/check"),
   apiPersonDelaysUpdate("/person/delays"),
-  apiRolesEditAdd("/roles/set/add"),
-  apiPersonDelete("/person/delete");
+  apiPersonDelete("/person/delete"),
+  apiRoleAdd("/roles/edit/add"),
+  apiRoleDelete("/roles/edit/delete");
 
   const Endpoints(this.path);
   final String path;
