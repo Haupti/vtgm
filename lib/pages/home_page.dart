@@ -24,7 +24,9 @@ String backButton(String swapId) {
 }
 
 String editButton(String swapId) {
-  return """<button
+  AuthRole currentRole = getCurrentAuthorizedUserRole();
+  if (currentRole == AuthRole.mod || currentRole == AuthRole.admin) {
+    return """<button
               class="btn btn-primary"
               hx-get="${Endpoints.componentEditableOverview.path}"
               hx-swap="innerhtml"
@@ -33,6 +35,9 @@ String editButton(String swapId) {
                   <i class="icon icon-edit"></i>
               </button>
         """;
+  } else {
+    return "";
+  }
 }
 
 String titleWithButton(ButtonType buttonType, String swapId) {
