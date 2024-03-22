@@ -1,12 +1,12 @@
 import 'package:nanoid/nanoid.dart';
 import 'package:ssr/ssr.dart';
 import 'package:vtgm/endpoints.dart';
+import 'package:vtgm/pages/person_administration_page.dart';
 import 'parse_form_post.dart';
 import '../dataproviders/repository.dart';
 import '../domain.dart';
 
 void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader(Endpoints.personAdd.path);
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   String? name = params["name"];
@@ -14,9 +14,11 @@ void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
     print("error: name parameter is required but not in request body");
     return;
   }
-  persons.add(Person(nanoid(), name));
+  final newPerson = Person(nanoid(), name);
+  persons.add(newPerson);
   savePeople(persons);
-  response.close();
+  response.setStatus(200);
+  response.write(playerRow(newPerson));
 }
 
 void checkPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
@@ -24,24 +26,27 @@ void checkPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
   for (var p in persons) {
-      p.workoutsPrepared = int.parse(params[p.id] ?? "0");
+    p.workoutsPrepared = int.parse(params[p.id] ?? "0");
   }
   savePeople(persons);
   response.close();
 }
 
 void deletePersonFormEndpoint(SsrRequest request, SsrResponse response) async {
-  response.setStatus(301).setLocationHeader(Endpoints.personDelete.path);
   Map<String, String> params = await parseFormData(request);
   List<Person> persons = getPeople();
-  List<Person> filtered = [];
-  for (var p in persons) {
-    if (params[p.id] != "on") {
-      filtered.add(p);
-    }
+
+  String? personId = params["personId"];
+  if (personId == null || personId == "") {
+    response.setStatus(400);
+    response.close();
+    return;
   }
-  savePeople(filtered);
-  response.close();
+
+  persons = persons.where((it) => it.id != personId).toList();
+  savePeople(persons);
+  response.setStatus(200);
+  response.write("");
 }
 
 void delaysPersonFormEndpoint(SsrRequest request, SsrResponse response) async {

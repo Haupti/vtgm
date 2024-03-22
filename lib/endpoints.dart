@@ -5,6 +5,7 @@ enum Endpoints {
   personAdd("/person/add"),
   personManager("/person/update"),
   personDelete("/person/delete"),
+  personAdministration("/person/administration"),
   apiPersonAdd("/person/add"),
   apiPersonCheckUpdate("/person/check"),
   apiPersonDelaysUpdate("/person/delays"),

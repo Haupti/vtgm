@@ -19,8 +19,7 @@ Component navBar() {
             <li class="menu-item"><a href="${Endpoints.rolesOverview.path}">Roles</a></li>
             ${currentRole == AuthRole.mod || currentRole == AuthRole.admin ? """<li class="menu-item"><a href="${Endpoints.personManager.path}">Manager</a></li>""" : ""}
             ${currentRole == AuthRole.admin ? """<li class="menu-item"><a href="${Endpoints.rolesEdit.path}">Set Roles</a></li>""" : ""}
-            ${currentRole == AuthRole.admin ? """<li class="menu-item"><a href="${Endpoints.personAdd.path}">Add Member</a></li>""" : ""}
-            ${currentRole == AuthRole.admin ? """<li class="menu-item"><a href="${Endpoints.personDelete.path}">Delete Member</a></li>""" : ""}
+            ${currentRole == AuthRole.admin ? """<li class="menu-item"><a href="${Endpoints.personAdministration.path}">Member Administration</a></li>""" : ""}
         </ul>
       </div>
       ${brand.render()}

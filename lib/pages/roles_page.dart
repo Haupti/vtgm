@@ -47,9 +47,10 @@ void rolesOverviewPage(SsrRequest request, SsrResponse response) {
 String roleRow(Responsibility responsibility, List<Person> persons) {
   return """
               <tr id="responsibility${responsibility.id}">
-                <td><button class="btn" hx-post="${Endpoints.apiRoleDelete.path}" hx-vals='{"roleId":"${responsibility.id}"}' hx-target="#responsibility${responsibility.id}" hx-swap="outerHTML"><i class="icon icon-cross"></i></button></td>
+                <td><button class="btn btn-error" hx-post="${Endpoints.apiRoleDelete.path}" hx-vals='{"roleId":"${responsibility.id}"}' hx-target="#responsibility${responsibility.id}" hx-swap="outerHTML"><i class="icon icon-cross"></i></button></td>
                 <td>${responsibility.name}</td>
                 <td>${findPersonResponsible(responsibility, persons)?.name ?? " "}</td>
+                <td></td>
               </tr>
             """;
 }
