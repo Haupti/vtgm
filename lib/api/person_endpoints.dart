@@ -21,6 +21,12 @@ void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   response.write(playerRow(newPerson));
 }
 
+void apiPersonUpdateEndpoint(SsrRequest request, SsrResponse response) async {
+  print(request.requestData);
+  response.setStatus(200);
+  response.close();
+}
+
 void checkPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
   response.setStatus(301).setLocationHeader(Endpoints.personManager.path);
   Map<String, String> params = await parseFormData(request);

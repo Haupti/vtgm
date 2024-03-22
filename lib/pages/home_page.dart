@@ -1,39 +1,118 @@
+import 'package:vtgm/endpoints.dart';
 import 'package:vtgm/pages/component/base_page.dart';
 import '../dataproviders/repository.dart';
 import '../domain.dart';
 import 'package:ssr/ssr.dart';
 import 'package:ssr/html.dart';
 
-String overviewTable(List<Person> persons) {
+enum ButtonType {
+  edit,
+  close;
+}
+
+String backButton(String swapId) {
   return """
-        <table class="table">
-          <thead>
-            <tr>
-              <th>name</th>
-              <th>workout</th>
-              <th>fine/euro</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${renderMany(persons.map((p) => Component.fromHtmlString("""
-              <tr>
-                <td>${p.name}</td>
-                <td>${p.workoutsPrepared}</td>
-                <td>${p.openFine}</td>
-              </tr>
-            """)).toList())}
-          </tbody>
-        </table
+         <button
+             class="btn btn-primary"
+             hx-get="${Endpoints.componentOverview.path}"
+             hx-swap="innerhtml"
+             hx-target="#$swapId"
+             >
+                 <i class="icon icon-cross"></i>
+         </button>
+         """;
+}
+
+String editButton(String swapId) {
+  return """<button
+              class="btn btn-primary"
+              hx-get="${Endpoints.componentEditableOverview.path}"
+              hx-swap="innerhtml"
+              hx-target="#$swapId"
+              >
+                  <i class="icon icon-edit"></i>
+              </button>
+        """;
+}
+
+String titleWithButton(ButtonType buttonType, String swapId) {
+  return """
+            <div style="display: flex; justify-content: space-between;">
+                <h1>Overview</h1>
+                ${buttonType == ButtonType.edit ? editButton(swapId) : backButton(swapId)}
+            </div>
+    """;
+}
+
+String editableOverviewTableComponent() {
+  String swapId = "homeContentId";
+  List<Person> persons = getPeople();
+  return """
+        <div id="$swapId">
+            ${titleWithButton(ButtonType.close, swapId)}
+            <form
+                id="person-update-form"
+                hx-post="${Endpoints.apiPersonUpdate.path}"
+                hx-swap="outerhtml"
+                hx-target="#person-update-form"
+            >
+                <div style="display: flex; justify-content: flex-end;"><input type="submit" value="Save" class="btn btn-success"/></div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Workouts</th>
+                      <th>Fine (Euro)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${persons.map((p) => """
+                        <tr>
+                          <td>${p.name}</td>
+                          <td><input type="number" value="${p.workoutsPrepared}" name="workouts:${p.id}"/></td>
+                          <td><input type="number" value="${p.openFine}" name="fine:${p.id}"</td>
+                        </tr>
+                    """).join()}
+                  </tbody>
+                </table
+            </form>
+        </div>
+        """;
+}
+
+String overviewTableComponent() {
+  List<Person> persons = getPeople();
+  String swapId = "homeContentId";
+  return """
+        <div id="$swapId">
+            ${titleWithButton(ButtonType.edit, swapId)}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Workouts</th>
+                  <th>Fine (Euro)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${renderMany(persons.map((p) => Component.fromHtmlString("""
+                  <tr>
+                    <td>${p.name}</td>
+                    <td>${p.workoutsPrepared}</td>
+                    <td>${p.openFine}</td>
+                  </tr>
+                """)).toList())}
+              </tbody>
+            </table
+        </div>
         """;
 }
 
 void homePage(SsrRequest request, SsrResponse response) {
-  List<Person> persons = getPeople();
   RootPage page = basePage([
     Component.fromHtmlString("""
       <div style="max-width: 1000px; margin: auto;">
-        <h1>Overview</h1>
-        ${overviewTable(persons)}
+            ${overviewTableComponent()}
       </div>
     """)
   ]);

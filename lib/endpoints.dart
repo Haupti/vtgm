@@ -6,12 +6,15 @@ enum Endpoints {
   personManager("/person/update"),
   personDelete("/person/delete"),
   personAdministration("/person/administration"),
-  apiPersonAdd("/person/add"),
-  apiPersonCheckUpdate("/person/check"),
-  apiPersonDelaysUpdate("/person/delays"),
-  apiPersonDelete("/person/delete"),
-  apiRoleAdd("/roles/edit/add"),
-  apiRoleDelete("/roles/edit/delete");
+  apiPersonUpdate("/api/person/update"),
+  apiPersonAdd("/api/person/add"),
+  apiPersonCheckUpdate("/api/person/check"),
+  apiPersonDelaysUpdate("/api/person/delays"),
+  apiPersonDelete("/api/person/delete"),
+  apiRoleAdd("/api/roles/edit/add"),
+  apiRoleDelete("/api/roles/edit/delete"),
+  componentEditableOverview("/api/component/overview/editable"),
+  componentOverview("/api/component/overview");
 
   const Endpoints(this.path);
   final String path;
