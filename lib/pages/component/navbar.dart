@@ -4,9 +4,9 @@ import 'package:vtgm/endpoints.dart';
 
 Component navBar() {
   var brand = Component.fromHtmlString(
-      """<a href="/" class="navbar-brand mr-2">TGM H5</a>""");
+      """<a href="${Endpoints.home.path}" class="navbar-brand mr-2">TGM H5</a>""");
   var roles = Component.fromHtmlString(
-      """<a href="/roles" class="btn btn-link">Roles</a>""");
+      """<a href="${Endpoints.rolesOverview.path}" class="btn btn-link">Roles</a>""");
   AuthRole currentRole = getCurrentAuthorizedUserRole();
 
   return Component.fromHtmlString("""
