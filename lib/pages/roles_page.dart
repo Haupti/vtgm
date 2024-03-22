@@ -44,11 +44,6 @@ void rolesOverviewPage(SsrRequest request, SsrResponse response) {
   okHtmlResponse(response, page);
 }
 
-String memberSelect(List<Person> persons) {
-  return """
-            """;
-}
-
 String roleRow(Responsibility responsibility, List<Person> persons) {
   return """
               <tr id="responsibility${responsibility.id}">
@@ -75,11 +70,10 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            ${responsibilities.map((it) => roleRow(it, persons))}
-            <div id="respPlaceholderId"></div>
-            <tr>
-              <form hx-post="${Endpoints.apiRoleAdd.path}" hx-target="#respPlaceholderId" hx-swap="afterend">
+          <tbody >
+            ${responsibilities.map((it) => roleRow(it, persons)).join()}
+            <tr id="responsibilityInsertId">
+              <form hx-post="${Endpoints.apiRoleAdd.path}" hx-target="#responsibilityInsertId" hx-swap="beforebegin">
                 <td></td>
                 <td><input type="text" name="roleName"/></td>
                 <td>
