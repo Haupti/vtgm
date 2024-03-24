@@ -10,6 +10,7 @@ enum Endpoints {
   apiRoleAdd("/api/roles/edit/add"),
   apiRoleDelete("/api/roles/edit/delete"),
   apiFundSave("/api/fund/save"),
+  apiInfoMessageAdd("/api/infomessage/add"),
   componentEditableOverview("/api/component/overview/editable"),
   componentOverview("/api/component/overview"),
   componentTeamFundContent("/api/component/teamfund"),
