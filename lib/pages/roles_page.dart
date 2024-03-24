@@ -56,6 +56,7 @@ String roleRow(Responsibility responsibility, List<Person> persons) {
 
 void rolesSetPage(SsrRequest request, SsrResponse response) {
   List<Person> persons = people_repo.getPeople();
+  print(persons.length);
   List<Responsibility> responsibilities = repo.getResponsibilities();
   RootPage page = basePage(
     """
@@ -78,7 +79,7 @@ void rolesSetPage(SsrRequest request, SsrResponse response) {
                 <td><input type="text" name="roleName"/></td>
                 <td>
                     <select class="form-select" id="memberIdSelect" name="memberId">
-                      ${persons.map((it) => """<option value="${it.id}">${it.name}</option>""")}
+                      ${persons.map((it) => """<option value="${it.id}">${it.name}</option>""").join()}
                     </select>
                 </td>
                 <td><input class="btn btn-primary" type="submit" value="Save"/></td>

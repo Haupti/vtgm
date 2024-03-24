@@ -11,11 +11,11 @@ String componentTeamFundContentEditable() {
   TeamFund teamFund = getTeamFund();
   String swapId = "mannschaftsKasseContainerId";
   return """
-      <div id="$swapId" style="width: 100%;">
+      <div id="$swapId" style="margin-bottom: 20px;">
         <form hx-swap="none" hx-post="${Endpoints.apiFundSave.path}">
-            <div style="display: flex; justify-content: space-between;">
-                <h2>Budget: <input type="number" name="budget" value="${teamFund.currentBudget}"/> Euro</h2>
-                <div style="display: flex; gap:5px;">
+            <div style="display: flex, flex-wrap: wrap; justify-content: space-between;">
+                <p class="text-large text-bold">Budget: <input type="number" min="-999" max="999" name="budget" value="${teamFund.currentBudget}"/> Euro</p>
+                <div style="display: flex; gap:5px; justify-content: flex-end;">
                   <input type="submit" value="Save" class="btn btn-success">
                   <button
                       class="btn btn-primary"
@@ -38,7 +38,7 @@ String componentTeamFundContent() {
   if (currentRole == AuthRole.mod || currentRole == AuthRole.admin) {
     return """
       <div id="$swapId" style="display: flex; gap: 10px;">
-          <h2>Budget: ${teamFund.currentBudget} Euro</h2>
+          <p class="text-large text-bold">Budget: ${teamFund.currentBudget} Euro</p>
           <button
             class="btn btn-primary"
             hx-get="${Endpoints.componentTeamFundContentEditable.path}"
@@ -50,7 +50,7 @@ String componentTeamFundContent() {
       """;
   } else {
     return """
-          <h2>Budget: ${teamFund.currentBudget} Euro</h2>
+          <p class="text-large text-bold">Budget: ${teamFund.currentBudget} Euro</p>
       """;
   }
 }
@@ -110,7 +110,7 @@ String infoPageHeadingWithNewMessageComponent(InfoMessage message) {
 String infoPageHeadingComponent() {
   String messageAddSwapId = "infoPageMessageAddPlaceholder";
   return """
-      <div id="$messageAddSwapId" style="margin: 0 0 20px 0;">
+      <div id="$messageAddSwapId" style="margin: 0 0 20px 0; float: right;">
           <button
             hx-get="${Endpoints.componentInfoPageMessageAdd.path}"
             hx-target="#$messageAddSwapId"
@@ -125,13 +125,15 @@ String infoPageHeadingComponent() {
 void infoPage(SsrRequest request, SsrResponse response) {
   InfoMessages messages = getInfoMessages();
   RootPage page = basePage("""
-      <h1>Infos</h1>
-      <div style="display: flex; width: 100%;">
-        <div style="width: 70%;">
+      <div style="display: flex; flex-wrap; align-items: baseline; justify-content: space-between;">
+          <h1>Infos</h1>
+          ${componentTeamFundContent()}
+      </div>
+      <div style="display: flex;">
+        <div>
             ${infoPageHeadingComponent()}
             ${messages.infoMessages.reversed.map(infoMessageComponent).join()}
         </div>
-      ${componentTeamFundContent()}
       </div>
       """);
   okHtmlResponse(response, page);

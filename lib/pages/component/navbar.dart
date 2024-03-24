@@ -10,10 +10,10 @@ Component navBar() {
   var info = Component.fromHtmlString(
       """<a href="${Endpoints.infoPage.path}" class="btn btn-link">Info</a>""");
   AuthRole currentRole = getCurrentAuthorizedUserRole();
-
   return Component.fromHtmlString("""
-  <header class="navbar" style="padding: 16px 16px 0 16px;">
-    <section class="navbar-section">
+  <div style="margin-bottom: 40px;"></div>
+  <header class="navbar" style="padding: 8px 16px; position: fixed; top: 0; background-color: white; width: 100%; z-index: 999;">
+    <section class="navbar-section" >
       <div class="dropdown">
         <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><i class="icon icon-menu"></i></a>
         <ul class="menu">
@@ -28,7 +28,7 @@ Component navBar() {
       ${roles.render()}
       ${info.render()}
     </section>
+    <hr>
   </header>
-  <div class="divider"></div>
   """);
 }

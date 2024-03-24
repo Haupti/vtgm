@@ -1,5 +1,6 @@
 import 'package:nanoid/nanoid.dart';
 import 'package:ssr/ssr.dart';
+import 'package:vtgm/api/util.dart';
 import 'package:vtgm/domain/person.dart';
 import 'package:vtgm/pages/person_administration_page.dart';
 import 'parse_form_post.dart';
@@ -13,7 +14,7 @@ void addPersonFormEndpoint(SsrRequest request, SsrResponse response) async {
     print("error: name parameter is required but not in request body");
     return;
   }
-  final newPerson = Person(nanoid(), name);
+  final newPerson = Person(nanoid(), urlDecode(name));
   persons.add(newPerson);
   savePeople(persons);
   response.setStatus(200);

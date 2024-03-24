@@ -72,8 +72,8 @@ String editableOverviewTableComponent() {
                     ${persons.map((p) => """
                         <tr>
                           <td>${p.name}</td>
-                          <td><input type="number" value="${p.workoutsPrepared}" name="workouts:${p.id}"/></td>
-                          <td><input type="number" value="${p.openFine}" name="fine:${p.id}"</td>
+                          <td><input type="number" max="999" min="-999" value="${p.workoutsPrepared}" name="workouts:${p.id}"/></td>
+                          <td><input type="number" max="999" min="-999" value="${p.openFine}" name="fine:${p.id}"</td>
                         </tr>
                     """).join()}
                   </tbody>

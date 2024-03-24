@@ -1,6 +1,7 @@
 import 'package:nanoid/nanoid.dart';
 import 'package:ssr/ssr.dart';
 import 'package:vtgm/api/parse_form_post.dart';
+import 'package:vtgm/api/util.dart';
 import 'package:vtgm/dataproviders/repository.dart';
 import 'package:vtgm/dataproviders/responsibility_repository.dart';
 import 'package:vtgm/domain/person.dart';
@@ -38,7 +39,7 @@ void addRoleEndpoint(SsrRequest request, SsrResponse response) async {
     return;
   }
   final newResponsibility = Responsibility(
-      id: nanoid(), name: roleName, personId: responsiblePersonId);
+      id: nanoid(), name: urlDecode(roleName), personId: responsiblePersonId);
   responsibilities.add(newResponsibility);
   saveResponsibilities(responsibilities);
 
