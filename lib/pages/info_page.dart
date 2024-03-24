@@ -60,16 +60,23 @@ void infoPage(SsrRequest request, SsrResponse response) {
   RootPage page = basePage("""
       <h1>Infos</h1>
       ${componentTeamFundContent()}
-      <div>
-      <h2>Messages</h2>
+      <div style="display: flex; justify-content: space-between;">
+          <h2>Messages</h2>
+          <button class="btn btn-action btn-primary btn-lg s-circle">
+              <i class="icon icon-plus"></i>
+          </button>
+      </div>
       ${messages.infoMessages.map((it) => """
-          <div>
-            <p style="font-size: 16px; font-weight: bold;">Message from ${it.reportDate}</p>
-            <p>${it.message}</p>
+          <div class="tile">
+            <div class="tile-icon">
+              <i class="icon icon-file centered"></i>
+            </div>
+            <div class="tile-content">
+              <p class="tile-title">Message from ${it.reportDate}</p>
+              <p class="tile-subtitle">${it.message}</p>
+            </div>
           </div>
           """).join()}
-      </div>
-
       """);
   okHtmlResponse(response, page);
 }
