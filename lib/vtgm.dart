@@ -18,6 +18,8 @@ void vtgm(List<String> _) {
     RequestHandler(method: RequestMethod.mGet, path: Endpoints.componentOverview.path, handler: overviewTableHandler).setMinimumRole(AuthRole.basic),
     RequestHandler(method: RequestMethod.mGet, path: Endpoints.componentTeamFundContent.path, handler: componentTeamFundContentHandler).setMinimumRole(AuthRole.basic),
     RequestHandler(method: RequestMethod.mGet, path: Endpoints.componentTeamFundContentEditable.path, handler: componentTeamFundContentEditableHandler).setMinimumRole(AuthRole.mod),
+    RequestHandler(method: RequestMethod.mGet, path: Endpoints.componentInfoPageMessageAdd.path, handler: componentInfoPageMessageAdd).setMinimumRole(AuthRole.basic),
+    RequestHandler(method: RequestMethod.mGet, path: Endpoints.componentInfoPageHeading.path, handler: componentInfoPageHeading).setMinimumRole(AuthRole.basic),
     RequestHandler(method: RequestMethod.mGet, path: Endpoints.rolesOverview.path, handler: rolesOverviewPage).setMinimumRole(AuthRole.basic),
     RequestHandler(method: RequestMethod.mGet, path: Endpoints.rolesEdit.path, handler: rolesSetPage).setMinimumRole(AuthRole.admin),
     RequestHandler(method: RequestMethod.mGet, path: Endpoints.personAdministration.path, handler: personAdministrationPage).setMinimumRole(AuthRole.admin),

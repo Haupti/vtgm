@@ -55,17 +55,48 @@ String componentTeamFundContent() {
   }
 }
 
+String infoPageMessageAddComponent() {
+  String messageAddSwapId = "infoPageMessageAddPlaceholder";
+  return """
+      <div id="$messageAddSwapId">
+          <div class="tile">
+            <div class="tile-icon">
+                <figure class="avatar avatar-lg" data-initial="i"></figure>
+            </div>
+            <div class="tile-content">
+                <p class="tile-title text-large"> New Info Message </p>
+                <textarea class="form-input" name="messagetext" rows="5" cols="60" placeholder="New message here..."></textarea>
+            </div>
+            <div class="tile-action">
+                <button class="btn btn-success">Save</button>
+            </div>
+          </div>
+      </div>
+          """;
+}
+
+String infoPageHeadingComponent() {
+  String messageAddSwapId = "infoPageMessageAddPlaceholder";
+  return """
+      <div id="$messageAddSwapId" style="display: flex; justify-content: space-between;">
+          <h2>Messages</h2>
+          <button 
+            hx-get="${Endpoints.componentInfoPageMessageAdd.path}"
+            hx-target="#$messageAddSwapId"
+            hx-swap="outerHTML"
+            class="btn btn-action btn-primary btn-lg s-circle">
+              <i class="icon icon-plus"></i>
+          </button>
+      </div>
+          """;
+}
+
 void infoPage(SsrRequest request, SsrResponse response) {
   InfoMessages messages = getInfoMessages();
   RootPage page = basePage("""
       <h1>Infos</h1>
       ${componentTeamFundContent()}
-      <div style="display: flex; justify-content: space-between;">
-          <h2>Messages</h2>
-          <button class="btn btn-action btn-primary btn-lg s-circle">
-              <i class="icon icon-plus"></i>
-          </button>
-      </div>
+      ${infoPageHeadingComponent()}
       ${messages.infoMessages.map((it) => """
           <div class="tile">
             <div class="tile-icon">

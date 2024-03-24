@@ -13,7 +13,9 @@ enum Endpoints {
   componentEditableOverview("/api/component/overview/editable"),
   componentOverview("/api/component/overview"),
   componentTeamFundContent("/api/component/teamfund"),
-  componentTeamFundContentEditable("/api/component/teamfund/editable");
+  componentTeamFundContentEditable("/api/component/teamfund/editable"),
+  componentInfoPageMessageAdd("/api/component/message/add"),
+  componentInfoPageHeading("/api/component/infopage/heading");
 
   const Endpoints(this.path);
   final String path;

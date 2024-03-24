@@ -9,6 +9,15 @@ void componentTeamFundContentHandler(SsrRequest request, SsrResponse response) {
   response.write(componentTeamFundContent());
 }
 
+void componentInfoPageMessageAdd(SsrRequest request, SsrResponse response) {
+  response.setStatus(200);
+  response.write(infoPageMessageAddComponent());
+}
+void componentInfoPageHeading(SsrRequest request, SsrResponse response) {
+  response.setStatus(200);
+  response.write(infoPageHeadingComponent());
+}
+
 void componentTeamFundContentEditableHandler(
     SsrRequest request, SsrResponse response) {
   response.setStatus(200);
