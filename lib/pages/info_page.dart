@@ -34,7 +34,9 @@ String componentTeamFundContentEditable() {
 String componentTeamFundContent() {
   String swapId = "mannschaftsKasseContainerId";
   TeamFund teamFund = getTeamFund();
-  return """
+  AuthRole currentRole = getCurrentAuthorizedUserRole();
+  if (currentRole == AuthRole.mod || currentRole == AuthRole.admin) {
+    return """
       <div id="$swapId" style="display: flex; justify-content: space-between; width: 100%;">
           <h2>Mannschaftskasse: ${teamFund.currentBudget} Euro</h2>
           <button
@@ -46,6 +48,11 @@ String componentTeamFundContent() {
           </button>
       </div>
       """;
+  } else {
+    return """
+          <h2>Mannschaftskasse: ${teamFund.currentBudget} Euro</h2>
+      """;
+  }
 }
 
 void infoPage(SsrRequest request, SsrResponse response) {
