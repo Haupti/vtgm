@@ -8,7 +8,7 @@ Component navBar() {
   var roles = Component.fromHtmlString(
       """<a href="${Endpoints.rolesOverview.path}" class="btn btn-link">Roles</a>""");
   var info = Component.fromHtmlString(
-      """<a href="${Endpoints.infoPage.path}" class="btn btn-link">Roles</a>""");
+      """<a href="${Endpoints.infoPage.path}" class="btn btn-link">Info</a>""");
   AuthRole currentRole = getCurrentAuthorizedUserRole();
 
   return Component.fromHtmlString("""

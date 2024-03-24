@@ -9,8 +9,11 @@ enum Endpoints {
   apiPersonDelete("/api/person/delete"),
   apiRoleAdd("/api/roles/edit/add"),
   apiRoleDelete("/api/roles/edit/delete"),
+  apiFundSave("/api/fund/save"),
   componentEditableOverview("/api/component/overview/editable"),
-  componentOverview("/api/component/overview");
+  componentOverview("/api/component/overview"),
+  componentTeamFundContent("/api/component/teamfund"),
+  componentTeamFundContentEditable("/api/component/teamfund/editable");
 
   const Endpoints(this.path);
   final String path;
