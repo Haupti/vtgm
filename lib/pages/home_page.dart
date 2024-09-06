@@ -85,6 +85,9 @@ String editableOverviewTableComponent() {
 
 String overviewTableComponent() {
   List<Person> persons = getPeople();
+  persons.sort((a, b) => (a.workoutsPrepared.compareTo(b.workoutsPrepared)));
+  List<Person> firstThree = persons.sublist(0,3);
+  List<Person> rest = persons.sublist(3);
   String swapId = "homeContentId";
   return """
         <div id="$swapId">
@@ -98,7 +101,14 @@ String overviewTableComponent() {
                 </tr>
               </thead>
               <tbody>
-                ${renderMany(persons.map((p) => Component.fromHtmlString("""
+                ${renderMany(firstThree.map((p) => Component.fromHtmlString("""
+                  <tr style="background-color: #FDFD96">
+                    <td>${p.name}</td>
+                    <td>${p.workoutsPrepared}</td>
+                    <td>${p.openFine}</td>
+                  </tr>
+                """)).toList())}
+                ${renderMany(rest.map((p) => Component.fromHtmlString("""
                   <tr>
                     <td>${p.name}</td>
                     <td>${p.workoutsPrepared}</td>
