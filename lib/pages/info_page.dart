@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ssr/html.dart';
 import 'package:ssr/ssr.dart';
+import 'package:vtgm/api/util.dart';
 import 'package:vtgm/dataproviders/info_message_repository.dart';
 import 'package:vtgm/dataproviders/team_fund_repository.dart';
 import 'package:vtgm/domain/info_messages.dart';
@@ -99,7 +100,7 @@ String infoMessageComponent(InfoMessage message) {
             </div>
             <div class="tile-content">
               <p class="tile-title text-large text-bold">Info ${message.reportDate}</p>
-              <p class="tile-subtitle">${HtmlEscape().convert(message.message)}</p>
+              <p class="tile-subtitle">${convertUserText(message.message)}</p>
             </div>
           </div>
           """;
