@@ -97,7 +97,7 @@ String infoMessageComponent(InfoMessage message) {
             </div>
             <div class="tile-content">
               <p class="tile-title text-large text-bold">Info ${message.reportDate}</p>
-              <p class="tile-subtitle">${message.message}</p>
+              <p class="tile-subtitle">${Uri.encodeFull(message.message)}</p>
             </div>
           </div>
           """;
