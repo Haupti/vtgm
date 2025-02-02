@@ -38,7 +38,7 @@ void apiInfoMessageAdd(SsrRequest request, SsrResponse response) async {
   }
   InfoMessages messages = getInfoMessages();
   InfoMessage newMessage =
-      InfoMessage(message: urlDecode(messagetext), reportDate: prettyDateNow());
+      InfoMessage(message: Uri.decodeFull(messagetext), reportDate: prettyDateNow());
   messages.infoMessages.add(newMessage);
   saveInfoMessages(messages);
   response.setStatus(200);
